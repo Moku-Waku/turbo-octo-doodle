@@ -8,7 +8,10 @@
       "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
+    --color-blue-100: oklch(93.2% 0.032 255.585);
     --color-blue-300: oklch(80.9% 0.105 251.813);
+    --color-blue-400: oklch(70.7% 0.165 254.624);
+    --color-blue-500: oklch(62.3% 0.214 259.815);
     --color-white: #fff;
     --spacing: 0.25rem;
     --text-sm: 0.875rem;
@@ -203,26 +206,8 @@
   .mt-4 {
     margin-top: calc(var(--spacing) * 4);
   }
-  .mt-6 {
-    margin-top: calc(var(--spacing) * 6);
-  }
-  .ml-1 {
-    margin-left: var(--spacing);
-  }
-  .ml-3 {
-    margin-left: calc(var(--spacing) * 3);
-  }
   .ml-4 {
     margin-left: calc(var(--spacing) * 4);
-  }
-  .ml-5 {
-    margin-left: calc(var(--spacing) * 5);
-  }
-  .ml-6 {
-    margin-left: calc(var(--spacing) * 6);
-  }
-  .ml-52 {
-    margin-left: calc(var(--spacing) * 52);
   }
   .ml-auto {
     margin-left: auto;
@@ -266,15 +251,6 @@
   .w-16 {
     width: calc(var(--spacing) * 16);
   }
-  .w-\[20\%\] {
-    width: 20%;
-  }
-  .w-\[24\%\] {
-    width: 24%;
-  }
-  .w-\[30\%\] {
-    width: 30%;
-  }
   .w-\[80vw\] {
     width: 80vw;
   }
@@ -292,9 +268,6 @@
   }
   .min-w-0 {
     min-width: 0px;
-  }
-  .min-w-1 {
-    min-width: var(--spacing);
   }
   .flex-1 {
     flex: 1;
@@ -329,9 +302,6 @@
   .items-center {
     align-items: center;
   }
-  .justify-between {
-    justify-content: space-between;
-  }
   .justify-center {
     justify-content: center;
   }
@@ -344,9 +314,6 @@
   .gap-6 {
     gap: calc(var(--spacing) * 6);
   }
-  .gap-7 {
-    gap: calc(var(--spacing) * 7);
-  }
   .truncate {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -354,9 +321,6 @@
   }
   .overflow-y-auto {
     overflow-y: auto;
-  }
-  .rounded-2xl {
-    border-radius: var(--radius-2xl);
   }
   .rounded-4xl {
     border-radius: var(--radius-4xl);
@@ -427,10 +391,6 @@
   .font-japen-cute {
     font-family: var(--font-japen-cute);
   }
-  .text-2xl {
-    font-size: var(--text-2xl);
-    line-height: var(--tw-leading, var(--text-2xl--line-height));
-  }
   .text-3xl {
     font-size: var(--text-3xl);
     line-height: var(--tw-leading, var(--text-3xl--line-height));
@@ -439,14 +399,8 @@
     font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-sm--line-height));
   }
-  .text-\[6px\] {
-    font-size: 6px;
-  }
   .text-\[10px\] {
     font-size: 10px;
-  }
-  .text-\[12px\] {
-    font-size: 12px;
   }
   .text-\[15px\] {
     font-size: 15px;
@@ -454,23 +408,23 @@
   .text-\[20px\] {
     font-size: 20px;
   }
-  .text-wrap {
-    text-wrap: wrap;
+  .text-\[\#123\] {
+    color: #123;
   }
-  .text-\[\#9a9393\] {
-    color: #9a9393;
+  .text-\[\#373838\] {
+    color: #373838;
+  }
+  .text-\[\#727476\] {
+    color: #727476;
   }
   .text-\[\#787676dd\] {
     color: #787676dd;
   }
-  .text-\[\#bcbaba\] {
-    color: #bcbaba;
+  .text-\[\#ccced1\] {
+    color: #ccced1;
   }
   .text-\[white\] {
     color: white;
-  }
-  .text-\[wite\] {
-    color: wite;
   }
   .text-white {
     color: var(--color-white);
@@ -480,10 +434,6 @@
   }
   .opacity-75 {
     opacity: 75%;
-  }
-  .shadow-2xl {
-    --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-md {
     --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 2px 4px -2px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
@@ -521,8 +471,17 @@
       --tw-scale-z: 110%;
       scale: var(--tw-scale-x) var(--tw-scale-y);
     }
+    .hover\:text-blue-100:hover {
+      color: var(--color-blue-100);
+    }
     .hover\:text-blue-300:hover {
       color: var(--color-blue-300);
+    }
+    .hover\:text-blue-400:hover {
+      color: var(--color-blue-400);
+    }
+    .hover\:text-blue-500:hover {
+      color: var(--color-blue-500);
     }
   }
   @media (width >= 40rem) {
@@ -550,7 +509,7 @@
 }
 @font-face {
   font-family: "japen-cute";
-  src: url("../../front/ZenMaruGothic-Medium.ttf") format("truetype");
+  src: url("../../front/MarukoGothicCJKjp-Medium.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
