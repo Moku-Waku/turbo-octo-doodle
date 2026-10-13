@@ -31,40 +31,40 @@
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 justify-items-center">
             
             <!-- 卡片 1 -->
-            <div class="song-card text-center w-full bg-white/30 rounded-lg p-2 flex flex-col cursor-pointer" data-src="audio/ジャージと愉快な仲間たち - Fiesta de la Luna ～魔法少女達の百年祭.mp3">
+            <div class="song-card text-center w-full bg-white/30 rounded-lg p-2 flex flex-col cursor-pointer">
                 <img src="Album_Cover/63／64 Completion.jpg" class="w-full aspect-square object-cover rounded-md shadow-md" alt="专辑图片">
                 <!-- 第一行：加 mt-2 间距，truncate 单行截断 -->
-                <p class="font-japen-bit text-[10px] w-full truncate mt-2 hover:text-blue-500">ジャージと愉快な仲間たち</p>
+                <p  id="singer_name" class="font-japen-bit text-[10px] w-full truncate mt-2 hover:text-blue-500">ジャージと愉快な仲間たち</p>
                 <!-- 第二行：line-clamp-2 最多两行截断 -->
-                <p class="font-japen-bit text-[15px] w-full line-clamp-2 text-[#373838] hover:text-blue-400">Fiesta de la Luna ～魔法少女達の百年祭</p>
+                <p id="song_name" class="font-japen-bit text-[15px] w-full line-clamp-2 text-[#373838] hover:text-blue-400">Fiesta de la Luna ～魔法少女達の百年祭</p>
             </div>
 
             <!-- 卡片 2 -->
             <div class="song-card text-center w-full bg-white/30 rounded-lg p-2 flex flex-col cursor-pointer">
                 <img src="Album_Cover/63／64 Completion.jpg" class="w-full aspect-square object-cover rounded-md shadow-md" alt="专辑图片">
-                <p class="font-japen-bit text-[10px] w-full truncate mt-2 hover:text-blue-500">ジャージと愉快な仲間たち</p>
-                <p class="font-japen-bit text-[15px] w-full line-clamp-2 text-[#373838] hover:text-blue-400">Adios, Illusion de los Companeros ～さよなら友の幻よ</p>
+                <p id="singer_name" class="font-japen-bit text-[10px] w-full truncate mt-2 hover:text-blue-500">ジャージと愉快な仲間たち</p>
+                <p id="song_name" class="font-japen-bit text-[15px] w-full line-clamp-2 text-[#373838] hover:text-blue-400">Adios, Illusion de los Companeros ～さよなら友の幻よ</p>
             </div>
 
             <!-- 卡片 3 -->
             <div class="song-card text-center w-full bg-white/30 rounded-lg p-2 flex flex-col cursor-pointer">
                 <img src="Album_Cover/63／64 Completion.jpg" class="w-full aspect-square object-cover rounded-md shadow-md" alt="专辑图片">
-                <p class="font-japen-bit text-[10px] w-full truncate mt-2 hover:text-blue-500">ジャージと愉快な仲間たち</p>
-                <p class="font-japen-bit text-[15px] w-full line-clamp-2 text-[#373838] hover:text-blue-400">Fiesta de la Luna ～魔法少女達の百年祭</p>
+                <p id="singer_name" class="font-japen-bit text-[10px] w-full truncate mt-2 hover:text-blue-500">ジャージと愉快な仲間たち</p>
+                <p id="song_name" class="font-japen-bit text-[15px] w-full line-clamp-2 text-[#373838] hover:text-blue-400">Fiesta de la Luna ～魔法少女達の百年祭</p>
             </div>
 
             <!-- 卡片 4 -->
             <div class="song-card text-center w-full bg-white/30 rounded-lg p-2 flex flex-col cursor-pointer">
                 <img src="Album_Cover/63／64 Completion.jpg" class="w-full aspect-square object-cover rounded-md shadow-md" alt="专辑图片">
-                <p class="font-japen-bit text-[10px] w-full truncate mt-2 hover:text-blue-500">ジャージと愉快な仲間たち</p>
-                <p class="font-japen-bit text-[15px] w-full line-clamp-2 text-[#373838] hover:text-blue-400">Fiesta de la Luna ～魔法少女達の百年祭</p>
+                <p id="singer_name" class="font-japen-bit text-[10px] w-full truncate mt-2 hover:text-blue-500">ジャージと愉快な仲間たち</p>
+                <p id="song_name" class="font-japen-bit text-[15px] w-full line-clamp-2 text-[#373838] hover:text-blue-400">Fiesta de la Luna ～魔法少女達の百年祭</p>
             </div>
 
             <!-- 卡片 5 -->
             <div class="song-card text-center w-full bg-white/30 rounded-lg p-2 flex flex-col cursor-pointer">
                 <img src="Album_Cover/63／64 Completion.jpg" class="w-full aspect-square object-cover rounded-md shadow-md" alt="专辑图片">
-                <p class="font-japen-bit text-[10px] w-full truncate mt-2 hover:text-blue-500">ジャージと愉快な仲間たち</p>
-                <p class="font-japen-bit text-[15px] w-full line-clamp-2 text-[#373838] hover:text-blue-400">Fiesta de la Luna ～魔法少女達の百年祭</p>
+                <p id="singer_name" class="font-japen-bit text-[10px] w-full truncate mt-2 hover:text-blue-500">ジャージと愉快な仲間たち</p>
+                <p id="song_name" class="font-japen-bit text-[15px] w-full line-clamp-2 text-[#373838] hover:text-blue-400">Fiesta de la Luna ～魔法少女達の百年祭</p>
             </div>
 
         </div>
@@ -73,7 +73,7 @@
      <div class="bg-[#c4dae661] w-[90%] h-20 fixed bottom-0 inset-x-0 flex rounded-t-lg items-center  backdrop-blur-md mx-auto">
         <!-- 播放栏左侧音乐文件详情 -->
         <div class="flex items-center h-full ml-4 flex-shrink-0">
-            <img src="Album_Cover/63／64 Completion.jpg" class="w-16 h-16 rounded-4xl shadow-md">
+            <img  id="Album_Cover" src="Album_Cover/63／64 Completion.jpg" class="w-16 h-16 rounded-full shadow-md " alt="专辑图片">
         </div>
         <!-- 歌曲信息 -->
         <div class="max-w-[30%] min-w-0 flex flex-col justify-center text-white ml-4">
