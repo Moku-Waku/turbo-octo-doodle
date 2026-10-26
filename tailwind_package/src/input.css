@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@source "../../**/*.html";
+@source "../../**/*.{html,js}";
 /* 字体 */
 @font-face {
   font-family: "japen-bit";

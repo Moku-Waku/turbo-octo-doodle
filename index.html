@@ -1,98 +1,118 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>音乐播放页</title>
     <!-- 标签栏图标 -->
-    <link rel="icon" href="icon/reisa.ico" type="image/png">
-    <link href="tailwind_package/src/output.css" rel="stylesheet">
-    
-</head>
-<body>
+    <link rel="icon" href="icon/reisa.ico" type="image/png" />
+    <link href="tailwind_package/src/output.css" rel="stylesheet" />
+  </head>
+  <body>
     <!-- 背景图 -->
-    <div class="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat blur-[2px]" 
-         style="background-image: url('img/Touhou-.webp');"></div>
+    <div
+      class="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat blur-[2px]"
+      style="background-image: url(&quot;img/Touhou-.webp&quot;)"
+    ></div>
 
     <!-- 导航栏 -->
-    <div class="w-full max-w-full h-16 rounded-b-lg opacity-75 bg-[#dbe8f644] font-japen-cute flex items-center">
-        <ul class="flex w-full gap-6 list-none justify-center text-3xl">
-            <li><a href="index.html" class="text-white hover:text-blue-300 transition">开始</a></li>
-            <li><a href="Playlist_page/songlist.html" class="text-white hover:text-blue-300 transition">歌单</a></li>
-            <li><a href="#" class="text-white hover:text-blue-300 transition">我的喜欢</a></li>
-        </ul>
+    <div
+      class="w-full max-w-full h-16 rounded-b-lg opacity-75 bg-[#dbe8f644] font-japen-cute flex items-center"
+    >
+      <ul class="flex w-full gap-6 list-none justify-center text-3xl">
+        <li>
+          <a href="index.html" class="text-white hover:text-blue-300 transition"
+            >开始</a
+          >
+        </li>
+        <li>
+          <a
+            href="Playlist_page/songlist.html"
+            class="text-white hover:text-blue-300 transition"
+            >歌单</a
+          >
+        </li>
+        <li>
+          <a href="#" class="text-white hover:text-blue-300 transition"
+            >我的喜欢</a
+          >
+        </li>
+      </ul>
     </div>
 
     <!-- 主体部分（滚动的容器） -->
-    <div class="bg-[#dbe8f644] w-[80vw] h-[calc(100vh-5rem)] mx-auto mt-4 rounded-md overflow-y-auto p-4 scrollbar-none">
-        
-        <!--  核心改动：网格布局，自适应一行放几个  -->
-        <!-- 手机2列，平板3列，中等屏幕4列，大屏幕5列，gap-4控制卡片间距 -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 justify-items-center">
-            
-            <!-- 卡片 1 -->
-            <div class="song-card text-center w-full bg-white/30 rounded-lg p-2 flex flex-col cursor-pointer">
-                <img src="Album_Cover/63／64 Completion.jpg" class="w-full aspect-square object-cover rounded-md shadow-md" alt="专辑图片">
-                <!-- 第一行：加 mt-2 间距，truncate 单行截断 -->
-                <p  id="singer_name" class="font-japen-bit text-[10px] w-full truncate mt-2 hover:text-blue-500">ジャージと愉快な仲間たち</p>
-                <!-- 第二行：line-clamp-2 最多两行截断 -->
-                <p id="song_name" class="font-japen-bit text-[15px] w-full line-clamp-2 text-[#373838] hover:text-blue-400">Fiesta de la Luna ～魔法少女達の百年祭</p>
-            </div>
-
-            <!-- 卡片 2 -->
-            <div class="song-card text-center w-full bg-white/30 rounded-lg p-2 flex flex-col cursor-pointer">
-                <img src="Album_Cover/63／64 Completion.jpg" class="w-full aspect-square object-cover rounded-md shadow-md" alt="专辑图片">
-                <p id="singer_name" class="font-japen-bit text-[10px] w-full truncate mt-2 hover:text-blue-500">ジャージと愉快な仲間たち</p>
-                <p id="song_name" class="font-japen-bit text-[15px] w-full line-clamp-2 text-[#373838] hover:text-blue-400">Adios, Illusion de los Companeros ～さよなら友の幻よ</p>
-            </div>
-
-            <!-- 卡片 3 -->
-            <div class="song-card text-center w-full bg-white/30 rounded-lg p-2 flex flex-col cursor-pointer">
-                <img src="Album_Cover/63／64 Completion.jpg" class="w-full aspect-square object-cover rounded-md shadow-md" alt="专辑图片">
-                <p id="singer_name" class="font-japen-bit text-[10px] w-full truncate mt-2 hover:text-blue-500">ジャージと愉快な仲間たち</p>
-                <p id="song_name" class="font-japen-bit text-[15px] w-full line-clamp-2 text-[#373838] hover:text-blue-400">Fiesta de la Luna ～魔法少女達の百年祭</p>
-            </div>
-
-            <!-- 卡片 4 -->
-            <div class="song-card text-center w-full bg-white/30 rounded-lg p-2 flex flex-col cursor-pointer">
-                <img src="Album_Cover/63／64 Completion.jpg" class="w-full aspect-square object-cover rounded-md shadow-md" alt="专辑图片">
-                <p id="singer_name" class="font-japen-bit text-[10px] w-full truncate mt-2 hover:text-blue-500">ジャージと愉快な仲間たち</p>
-                <p id="song_name" class="font-japen-bit text-[15px] w-full line-clamp-2 text-[#373838] hover:text-blue-400">Fiesta de la Luna ～魔法少女達の百年祭</p>
-            </div>
-
-            <!-- 卡片 5 -->
-            <div class="song-card text-center w-full bg-white/30 rounded-lg p-2 flex flex-col cursor-pointer">
-                <img src="Album_Cover/63／64 Completion.jpg" class="w-full aspect-square object-cover rounded-md shadow-md" alt="专辑图片">
-                <p id="singer_name" class="font-japen-bit text-[10px] w-full truncate mt-2 hover:text-blue-500">ジャージと愉快な仲間たち</p>
-                <p id="song_name" class="font-japen-bit text-[15px] w-full line-clamp-2 text-[#373838] hover:text-blue-400">Fiesta de la Luna ～魔法少女達の百年祭</p>
-            </div>
-
+    <div
+      class="bg-[#dbe8f644] w-[80vw] h-[calc(100vh-11rem)] mx-auto mt-4 rounded-md overflow-y-auto p-4 scrollbar-none"
+    >
+      <!--  核心改动：网格布局，自适应一行放几个  -->
+      <!-- 手机2列，平板3列，中等屏幕4列，大屏幕5列，gap-4控制卡片间距 -->
+        <div
+          id="card-container"
+          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 justify-items-center"
+        >
+          <!-- 里面的卡片用 jQuery 动态塞进来 -->
         </div>
     </div>
     <!-- 播放栏 -->
-     <div class="bg-[#c4dae661] w-[90%] h-20 fixed bottom-0 inset-x-0 flex rounded-t-lg items-center  backdrop-blur-md mx-auto">
-        <!-- 播放栏左侧音乐文件详情 -->
-        <div class="flex items-center h-full ml-4 flex-shrink-0">
-            <img  id="Album_Cover" src="Album_Cover/63／64 Completion.jpg" class="w-16 h-16 rounded-full shadow-md " alt="专辑图片">
-        </div>
-        <!-- 歌曲信息 -->
-        <div class="max-w-[30%] min-w-0 flex flex-col justify-center text-white ml-4">
-            <p class="text-[white] truncate font-japen-cute">Fiesta de la Luna ～魔法少女達の百年祭</p>
-            <p class="text-sm text-[#787676dd] truncate">ジャージと愉快な仲間たち</p>
-        </div>
-        <!-- 小型歌词显示 -->
-         <div class="flex-1 min-w-0 flex flex-col justify-center text-white text-[20px] text-center px-4">
-            <p class="truncate text-center">纯音乐，请欣赏</p>
-         </div>
-        <!-- 播放按钮组件 -->
-        <div class="flex items-center gap-4 ml-auto flex-shrink-0">
-            <img src="icon/caret-left-filled.png" class="w-10 h-10 object-contain cursor-pointer hover:scale-110 transition" alt="上一首">
-            <img src="icon/caret-right-filled.png" class="w-10 h-10 object-contain cursor-pointer hover:scale-110 transition" alt="下一首">
-        </div>
+    <div
+      class="bg-[#c4dae661] w-[90%] h-20 fixed bottom-0 inset-x-0 flex rounded-t-lg items-center backdrop-blur-md mx-auto"
+    >
+      <!-- 播放栏左侧音乐文件详情 -->
+      <div class="flex items-center h-full ml-4 flex-shrink-0">
+        <img
+          id="Album_Cover"
+          src="Album_Cover/63／64 Completion.jpg"
+          class="w-16 h-16 rounded-full shadow-md"
+          alt="专辑图片"
+        />
+      </div>
+      <!-- 歌曲信息 -->
+      <div
+        class="max-w-[30%] min-w-0 flex flex-col justify-center text-white ml-4"
+      >
+        <p class="text-[white] truncate font-japen-cute">
+          Fiesta de la Luna ～魔法少女達の百年祭
+        </p>
+        <p class="text-sm text-[#787676dd] truncate">
+          ジャージと愉快な仲間たち
+        </p>
+      </div>
+      <!-- 小型歌词显示 -->
+      <div
+        class="flex-1 min-w-0 flex flex-col justify-center text-white text-[20px] text-center px-4"
+      >
+        <p class="truncate text-center">纯音乐，请欣赏</p>
+      </div>
+      <!-- 播放按钮组件 -->
+      <div class="flex items-center gap-4 ml-auto flex-shrink-0 mr-2">
+        <img
+          src="icon/caret-left-filled.png"
+          class="w-7 h-7 object-contain cursor-pointer hover:scale-110 transition"
+          alt="上一首"
+        />
+        <img
+          id="play_song"
+          src="icon/play.png"
+          class="w-10 h-10 object-contain cursor-pointer hover:scale-110 transition"
+          alt="播放"
+        />
+        <img
+          id="pause_song"
+          src="icon/pause.png"
+          class="w-10 h-10 object-contain cursor-pointer hover:scale-110 transition hidden"
+          alt="暂停"
+        />
+        <img
+          src="icon/caret-right-filled.png"
+          class="w-7 h-7 object-contain cursor-pointer hover:scale-110 transition"
+          alt="下一首"
+        />
+      </div>
+    </div>
     <!-- 隐藏的音频播放器，放在 <body> 结束标签前 -->
     <audio id="my-audio"></audio>
     <!-- 引用文件 -->
-    <script  src="js/jquery-4.0.0.min.js"></script>
+    <script src="js/jquery-4.0.0.min.js"></script>
     <script src="js/index.js"></script>
-</body>
+  </body>
 </html>
