@@ -2,14 +2,14 @@
 @source "../../**/*.{html,js}";
 /* 字体 */
 @font-face {
-  font-family: "japen-bit";
+  font-family: "japan-bit";
   src: url("../../front/ZLabsRoundPix_12px_M_CN.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "japen-cute";
+  font-family: "japan-cute";
   src: url("../../front/MarukoGothicCJKjp-Medium.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
@@ -17,6 +17,6 @@
 }
 /* 主题 */
 @theme{
-    --font-japen-bit:"japen-bit", sans-serif;
-    --font-japen-cute:"japen-cute", sans-serif;
+    --font-japan-bit:"japan-bit", sans-serif;
+    --font-japan-cute:"japan-cute", sans-serif;
 }

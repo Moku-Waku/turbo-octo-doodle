@@ -17,7 +17,7 @@
 
     <!-- 导航栏 -->
     <div
-      class="w-full max-w-full h-16 rounded-b-lg opacity-75 bg-[#dbe8f644] font-japen-cute flex items-center"
+      class="w-full max-w-full h-16 rounded-b-lg opacity-75 bg-[#dbe8f644] font-japan-cute flex items-center"
     >
       <ul class="flex w-full gap-6 list-none justify-center text-3xl">
         <li>
@@ -62,7 +62,7 @@
         <img
           id="Album_Cover"
           src="Album_Cover/63／64 Completion.jpg"
-          class="w-16 h-16 rounded-full shadow-md"
+          class="w-16 h-16 rounded-full shadow-md animate-[spin_8s_linear_infinite] [animation-play-state:paused] object-cover"
           alt="专辑图片"
         />
       </div>
@@ -70,10 +70,10 @@
       <div
         class="max-w-[30%] min-w-0 flex flex-col justify-center text-white ml-4"
       >
-        <p class="text-[white] truncate font-japen-cute">
+        <p  id="songName" class="text-[white] truncate font-japan-cute">
           Fiesta de la Luna ～魔法少女達の百年祭
         </p>
-        <p class="text-sm text-[#787676dd] truncate">
+        <p id="singerName" class="text-sm text-[#787676dd] truncate">
           ジャージと愉快な仲間たち
         </p>
       </div>
@@ -85,6 +85,27 @@
       </div>
       <!-- 播放按钮组件 -->
       <div class="flex items-center gap-4 ml-auto flex-shrink-0 mr-2">
+                <!-- 音量控制组件 -->
+        <div class="relative flex items-center">
+            <img
+              id="volume-btn"
+              src="icon/notice.png"
+              class="w-6 h-6 object-contain cursor-pointer hover:scale-110 transition"
+              alt="音量"
+            />
+            <!-- 弹出的滑动条，默认隐藏 -->
+            <div id="volume-panel" class="hidden absolute bottom-10 left-1/2 -translate-x-1/2 bg-black/60 p-3 rounded-lg backdrop-blur-md z-50">
+                <input 
+                  id="volume-slider" 
+                  type="range" 
+                  min="0" 
+                  max="1" 
+                  step="0.05" 
+                  value="1"
+                  class="w-24 accent-blue-500 cursor-pointer"
+                >
+            </div>
+        </div>
         <img
           src="icon/caret-left-filled.png"
           class="w-7 h-7 object-contain cursor-pointer hover:scale-110 transition"
@@ -107,10 +128,11 @@
           class="w-7 h-7 object-contain cursor-pointer hover:scale-110 transition"
           alt="下一首"
         />
+
       </div>
     </div>
     <!-- 隐藏的音频播放器，放在 <body> 结束标签前 -->
-    <audio id="my-audio"></audio>
+    <audio id="my-audio" src="audio/ジャージと愉快な仲間たち - Fiesta de la Luna ～魔法少女達の百年祭.mp3"></audio>
     <!-- 引用文件 -->
     <script src="js/jquery-4.0.0.min.js"></script>
     <script src="js/index.js"></script>
