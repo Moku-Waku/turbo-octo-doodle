@@ -10,6 +10,14 @@ $(function(){
 
     //=========迷你歌词播放逻辑=========
     let lyricLines = [];   // 存解析后的歌词：[{ time: 秒, text: '歌词' }]
+    let currentOffset = 0; // 当前这首歌的歌词偏移（秒）
+
+    // 每首歌自己的偏移：正数 = 歌词延后出现，负数 = 提前出现
+    // 加新歌时在这里补一行，没写的歌默认 0
+    const LYRIC_OFFSETS = {
+        'LRC/INTERNET OVERDOSE.lrc': 1.0,
+        'LRC/Crimewave.lrc': 0,
+    };
 
     // 把 LRC 文本解析成数组（一行形如 [01:23.45]歌词）
     function parseLrc(text) {
@@ -29,6 +37,7 @@ $(function(){
     // 切歌时调用：清空旧歌词，按 lrcUrl 读新歌词
     function loadLyric(url) {
         lyricLines = [];
+        currentOffset = LYRIC_OFFSETS[url] || 0;   // 取这首歌的偏移
         $miniLyric.text('纯音乐，请欣赏');
         if (!url) return;
 
@@ -45,7 +54,7 @@ $(function(){
     function updateMiniLyric() {
         if (!lyricLines.length) return;
 
-        const now = $audio[0].currentTime;
+        const now = $audio[0].currentTime - currentOffset;
         let text = '';
         for (let i = 0; i < lyricLines.length; i++) {
             if (now >= lyricLines[i].time) {
