@@ -60,10 +60,10 @@
      <!-- ================= 左右分栏大容器 ================= -->
     <div class="flex h-full w-full">
       <!-- 左侧侧边栏（默认隐藏，点按钮从左边滑出） -->
-       <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-[#dbe8f644] flex flex-col backdrop-blur-md border-r border-white/20 z-40 -translate-x-full transition-transform duration-300">
+       <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 overflow-hidden bg-[#dbe8f644] flex flex-col backdrop-blur-md border-r border-white/20 z-40 -translate-x-full transition-transform duration-300">
         <div class="h-16 flex items-center justify-center text-white text-2xl font-japan-cute border-b border-white/20 relative">
           <div class="flex items-center justify-between gap-1">
-          <img src="img/head.jpg" class="rounded-full w-12 h-12 object-cover " alt="用户头像">
+          <img src="img/head.jpg" class="rounded-full w-12 h-12 object-cover shrink-0" style="width: 48px; height: 48px" alt="用户头像">
           <p id="username">冴月麟</p>
           </div>
 
