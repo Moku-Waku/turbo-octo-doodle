@@ -166,6 +166,25 @@ $(function(){
             $audio[0].pause();
         }
     });
+    // ===== 侧边栏：点按钮滑出，点遮罩或按 Esc 收起 =====
+    function closeSidebar() {
+        $('#sidebar').addClass('-translate-x-full');
+        $('#sidebar-mask').addClass('hidden');
+    }
+
+    $('#sidebar-btn').on('click', function () {
+        $('#sidebar').toggleClass('-translate-x-full');
+        $('#sidebar-mask').toggleClass('hidden');
+    });
+
+
+    $('#sidebar-mask').on('click', closeSidebar);
+    $('#sidebar-close').on('click', closeSidebar);
+
+    $(document).on('keydown', function (e) {
+        if (e.key === 'Escape') closeSidebar();
+    });
+
         // ===== 音量控制逻辑 =====
     // 1. 点击图标，切换面板显示/隐藏
     $('#volume-btn').on('click', function() {
