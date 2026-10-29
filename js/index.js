@@ -7,7 +7,7 @@ $(function(){
     const $Album_cover=$('#Album_Cover')
     const $miniLyric = $('#mini-lyric');//歌词
 
-
+//=======================================================================
     //=========迷你歌词播放逻辑=========
     let lyricLines = [];   // 存解析后的歌词：[{ time: 秒, text: '歌词' }]
     let currentOffset = 0; // 当前这首歌的歌词偏移（秒）
@@ -25,7 +25,7 @@ $(function(){
         text.split('\n').forEach(function (line) {
             const m = line.match(/\[(\d+):(\d+)(?:\.(\d+))?\](.*)/);
             if (!m) return;
-            const time = parseInt(m[1]) * 60 + parseInt(m[2]) + (m[3] ? parseInt(m[3]) / 100 : 0);
+            const time = parseInt(m[1]) * 60 + parseInt(m[2]) + (m[3] ? parseFloat("0." + m[3]) : 0);
             const content = m[4].trim();
             if (content) {
                 result.push({ time: time, text: content });
@@ -84,7 +84,7 @@ $(function(){
     // 点击播放/暂停按钮
     $playBtn.on('click', () => $audio[0].play());
     $pauseBtn.on('click', () => $audio[0].pause());
-
+//=======================================================================
 
 
     
@@ -109,20 +109,20 @@ $(function(){
      // 现代写法：用 map 和 join 替代 $.each
     // map 负责把每个数据变成一段 HTML 字符串，join('') 负责把它们拼接起来
     const htmlString = songs.map(song => `
-        <div class="song-card text-center w-full bg-white/30 rounded-lg p-2 flex flex-col cursor-pointer group" 
+        <div class="song-card text-center w-full h-full bg-white/30 rounded-lg p-2 flex flex-col cursor-pointer group" 
              data-id="${song.id}" 
              data-src="${song.audio}"
              data-lrc="${song.lrcUrl || ''}">
             <img src="${song.cover}" class="w-full aspect-square object-cover rounded-md shadow-md" alt="专辑图片">
             <p class="singer font-japan-bit text-[10px] w-full truncate mt-2 group-hover:text-blue-500">${song.singer}</p>
-            <p class="name font-japan-bit text-[15px] w-full line-clamp-2 text-[#373838] group-hover:text-blue-400">${song.name}</p>
+            <p class="name font-japan-bit text-[15px] w-full  line-clamp-2 text-[#373838] group-hover:text-blue-400">${song.name}</p>
         </div>
     `).join('');
 
     // 一键渲染到页面上
     $container.html(htmlString);
-
-      // ================= 3. 点击卡片播放逻辑 =================
+//=======================================================================
+      // =================  点击卡片播放逻辑 =================
     $container.on('click', '.song-card', function () {
         const audioSrc = $(this).data('src');
         const songName = $(this).find('.name').text();
@@ -140,7 +140,7 @@ $(function(){
         // 1. 先把动画移除，图片瞬间回正
         $Album_cover.removeClass('animate-[spin_8s_linear_infinite]');
         
-        // 2. 这行是前端神技：强制浏览器立刻计算一次元素尺寸，刷新它的重绘引擎
+        // 2. 强制浏览器立刻计算一次元素尺寸，刷新它的重绘引擎
         void $Album_cover[0].offsetWidth; 
         
         // 3. 再把动画加回去，并让它处于暂停状态（因为马上要播放了，play 事件会接管让它转）
@@ -156,7 +156,7 @@ $(function(){
         $('#singerName').text(singerName);
         $Album_cover.attr('src', coverSrc); // 换图
     });
-
+//=======================================================================
     // ===== 点击播放栏的图片或文字，播放/暂停 =====
     $('#Album_Cover, #songName, #singerName').css('cursor', 'pointer').on('click', function() {
         // 如果暂停了，就播放；否则就暂停
@@ -166,25 +166,6 @@ $(function(){
             $audio[0].pause();
         }
     });
-    // ===== 侧边栏：点按钮滑出，点遮罩或按 Esc 收起 =====
-    function closeSidebar() {
-        $('#sidebar').addClass('-translate-x-full');
-        $('#sidebar-mask').addClass('hidden');
-    }
-
-    $('#sidebar-btn').on('click', function () {
-        $('#sidebar').toggleClass('-translate-x-full');
-        $('#sidebar-mask').toggleClass('hidden');
-    });
-
-
-    $('#sidebar-mask').on('click', closeSidebar);
-    $('#sidebar-close').on('click', closeSidebar);
-
-    $(document).on('keydown', function (e) {
-        if (e.key === 'Escape') closeSidebar();
-    });
-
         // ===== 音量控制逻辑 =====
     // 1. 点击图标，切换面板显示/隐藏
     $('#volume-btn').on('click', function() {
