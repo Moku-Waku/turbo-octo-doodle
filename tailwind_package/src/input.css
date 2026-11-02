@@ -19,17 +19,8 @@
 @theme {
   --font-japan-bit: "japan-bit", sans-serif;
   --font-japan-cute: "japan-cute", sans-serif;
-  --animate-scroll: scroll 10s linear infinite;
 }
-/* 滚动 */
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  } /* 直接滚到底 */
-}
+
 /* 迷你歌词：小字号要清晰，用系统字体，加一点阴影提升对比度 */
 .lyric-text {
   font-family:
