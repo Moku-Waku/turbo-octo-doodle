@@ -17,7 +17,7 @@
 
     <!-- 导航栏 -->
     <div
-      class="w-full max-w-full h-16 rounded-b-lg opacity-75 bg-[#dbe8f644] font-japan-cute flex items-center relative"
+      class="w-full max-w-full h-16 rounded-b-lg bg-[#dbe8f644] font-japan-cute flex items-center relative"
     >
       <button
         id="sidebar-btn"
@@ -51,7 +51,7 @@
             class="text-white hover:text-blue-300 transition"
             target="_blank"
             rel="noopener"
-            >歌单</a
+            >发现</a
           >
         </li>
         <li>
@@ -61,14 +61,16 @@
         </li>
       </ul>
       <!-- 导航栏右侧用户信息 -->
-      <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-3">
+      <div
+        class="absolute right-4 top-1/2 -translate-y-1/2 hidden md:flex items-center gap-3"
+      >
         <img
           src="img/head.jpg"
           class="rounded-full w-12 h-12 object-cover shrink-0"
           style="width: 48px; height: 48px"
           alt="用户头像"
         />
-        <p id="username">冴月麟</p>
+        <p id="username" class="text-white">冴月麟</p>
       </div>
     </div>
 
@@ -115,7 +117,7 @@
             class="px-4 py-3 rounded-lg hover:bg-white/20 transition"
             target="_blank"
             rel="noopener"
-            >歌单</a
+            >发现</a
           >
           <a href="#" class="px-4 py-3 rounded-lg hover:bg-white/20 transition"
             >我的喜欢</a
@@ -163,18 +165,26 @@
         </p>
         <p
           id="singerName"
-          class="text-sm text-[#787676dd] truncate font-japan-bit"
+          class="text-sm text-[#373737] truncate font-japan-bit"
         >
           ジャージと愉快な仲間たち
         </p>
       </div>
       <!-- 小型歌词显示 -->
       <div
-        class="flex-1 min-w-0 flex flex-col justify-center text-white/80 text-sm md:text-base text-center px-4"
+        class="flex-1 min-w-0 flex flex-col justify-center gap-2 text-white/80 text-sm md:text-base text-center px-4"
       >
-        <p id="mini-lyric" class="lyric-text truncate text-center">
+        <p
+          id="mini-lyric"
+          class="lyric-text line-clamp-2 text-center w-full block"
+        >
           纯音乐，请欣赏
         </p>
+        <!-- 翻译：固定显示在原文下方，没有翻译时隐藏 -->
+        <p
+          id="mini-lyric-trans"
+          class="hidden truncate text-center w-full text-[16px] leading-tight text-white/60"
+        ></p>
       </div>
       <!-- 播放按钮组件 -->
       <div class="flex items-center gap-4 ml-auto flex-shrink-0 mr-2">
