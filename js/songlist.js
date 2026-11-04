@@ -10,27 +10,28 @@ $(function () {
     {
       title: "Crimewave",
       desc: "",
-      cover: "Album_Cover/Track-cover-album-artwork300x300.jpg",
+      cover: "../Album_Cover/Track-cover-album-artwork300x300.jpg",
     },
     {
       title: "INTERNET OVERDOSE",
       desc: "",
-      cover: "Album_Cover/INTERNET_OVERDOSE640x640.webp",
+      cover: "../Album_Cover/INTERNET_OVERDOSE640x640.webp",
     },
     {
       title: "//////////////////",
       desc: "",
-      cover: "Album_Cover/63／64 Completion.jpg",
+      cover: "../Album_Cover/63／64 Completion.jpg",
     },
     {
       title: "第五首歌",
       desc: "",
-      cover: "Album_Cover/63／64 Completion.jpg",
+      cover: "../Album_Cover/63／64 Completion.jpg",
     },
   ];
   const htmlString = playlistData
     .map(
       (song) => `
+      <a href="../other_pages/list.html" class="block no-underline">
         <div class="song-card relative w-40 h-46 rounded-lg cursor-pointer group overflow-hidden">
             <img src="${song.cover}" class="absolute inset-0 w-full h-full object-cover">
             
@@ -42,10 +43,18 @@ $(function () {
             </div>
             
         </div>
+      </a>
     `,
     )
     .join("");
 
   // 一键渲染到页面上
   $commend_songlist_card.html(htmlString);
+  // ===========轮播图===========
+  const $img_play = [
+    {
+      url: "",
+      title: "",
+    },
+  ];
 });

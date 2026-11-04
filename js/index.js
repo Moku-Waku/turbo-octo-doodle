@@ -16,7 +16,7 @@ $(function () {
   // 每首歌自己的偏移：正数 = 歌词延后出现，负数 = 提前出现
   // 加新歌时在这里补一行，没写的歌默认 0
   const LYRIC_OFFSETS = {
-    "LRC/INTERNET OVERDOSE - NEEDY GIRL OVERDOSE _ KOTOKO _ Aiobahn +81.lrc": 1.4,
+    "LRC/INTERNET OVERDOSE - NEEDY GIRL OVERDOSE _ KOTOKO _ Aiobahn +81.lrc": 1.6,
   };
 
   // 把 LRC 文本解析成数组（一行形如 [01:23.45]歌词）
@@ -161,7 +161,7 @@ $(function () {
       id: 5,
       name: "妄想感傷代償連盟 -Hello ver.-",
       singer: "DECO*27",
-      cover: "Album_Cover/妄想感傷代償連盟 -Hello ver.-  - DECO_27.jpg",
+      cover: "Album_Cover/妄想感傷代償連盟 -Hello ver.-  - DECO_27.webp",
       audio: "audio/妄想感傷代償連盟 -Hello ver.-  - DECO_27.mp3",
       lrcUrl: "LRC/妄想感傷代償連盟 -Hello ver.-  - DECO_27.lrc",
     },
@@ -169,7 +169,7 @@ $(function () {
       id: 6,
       name: "Коммерсанты",
       singer: "Molchat Doma",
-      cover: "Album_Cover/Коммерсанты - Molchat Doma.jpg",
+      cover: "Album_Cover/Коммерсанты - Molchat Doma.webp",
       audio: "audio/Коммерсанты - Molchat Doma.mp3",
       lrcUrl: "LRC/Коммерсанты - Molchat Doma.lrc",
     },
@@ -177,30 +177,41 @@ $(function () {
       id: 7,
       name: "На Дне",
       singer: "Molchat Doma",
-      cover: "Album_Cover/Коммерсанты - Molchat Doma.jpg",
+      cover: "Album_Cover/Коммерсанты - Molchat Doma.webp",
       audio: "audio/На Дне - Molchat Doma.mp3",
       lrcUrl: "LRC/На Дне - Molchat Doma.lrc",
     },
     {
       id: 8,
-      name: "第八首歌",
-      singer: "歌手名",
-      cover: "Album_Cover/63／64 Completion.jpg",
-      audio: "",
+      name: "タイムパラドックス",
+      singer: "あよ / 森羅万象",
+      cover: "Album_Cover/タイムパラドックス - あよ _ 森羅万象.jpg",
+      audio: "audio/spotiget.com_森羅万象_タイムパラドックス.mp3",
+      lrcUrl: "LRC/タイムパラドックス - あよ _ 森羅万象.lrc",
     },
     {
       id: 9,
-      name: "第九首歌",
-      singer: "歌手名",
-      cover: "Album_Cover/63／64 Completion.jpg",
-      audio: "",
+      name: "东方之珠",
+      singer: "羅大佑",
+      cover: "Album_Cover/东方之珠 - 罗大佑.jpg",
+      audio: "audio/spotiget.com_羅大佑_東方之珠.mp3",
+      lrcUrl: "LRC/东方之珠 - 罗大佑.lrc",
     },
     {
       id: 10,
-      name: "第十首歌",
-      singer: "歌手名",
-      cover: "Album_Cover/63／64 Completion.jpg",
-      audio: "",
+      name: "Судно (Борис Рыжий)",
+      singer: "Molchat Doma",
+      cover: "Album_Cover/Коммерсанты - Molchat Doma.webp",
+      audio: "audio/spotiget.com_Molchat_Doma_Судно_(Борис_Рыжий).mp3",
+      lrcUrl: "LRC/Судно (Борис Рыжий) - Molchat Doma.lrc",
+    },
+    {
+      id: 11,
+      name: "火车",
+      singer: "羅大佑",
+      cover: "Album_Cover/原乡.jpg",
+      audio: "audio/羅大佑 - 火車.mp3",
+      lrcUrl: "LRC/火车 - 罗大佑.lrc",
     },
   ];
   // ===========================================================
