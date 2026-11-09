@@ -70,7 +70,7 @@
           style="width: 48px; height: 48px"
           alt="用户头像"
         />
-        <p id="username" class="text-white">冴月麟</p>
+        <p class="text-white username">冴月麟</p>
       </div>
     </div>
 
@@ -91,7 +91,7 @@
               style="width: 48px; height: 48px"
               alt="用户头像"
             />
-            <p id="username">冴月麟</p>
+            <p class="username">冴月麟</p>
           </div>
 
           <button
@@ -157,23 +157,22 @@
       <!-- 播放栏左侧音乐文件详情 -->
       <div class="flex items-center h-full ml-4 shrink-0">
         <img
-          id="Album_Cover"
           src="Album_Cover/63／64 Completion.jpg"
-          class="w-16 h-16 rounded-full shadow-md animate-[spin_8s_linear_infinite] [animation-play-state:paused] object-cover"
+          class="Album_Cover w-16 h-16 rounded-full shadow-md animate-[spin_8s_linear_infinite] [animation-play-state:paused] object-cover"
           alt="专辑图片"
         />
       </div>
       <!-- 歌曲信息 -->
       <div
-        class="max-w-[30%] min-w-0 flex flex-col justify-center text-white ml-4"
+        id="song-info"
+        class="w-50 min-w-0 flex flex-col justify-center text-white ml-4 overflow-hidden relative cursor-pointer"
       >
-        <p id="songName" class="text-[white] truncate font-japan-cute">
+        <p
+          class="songName text-[white] font-japan-cute whitespace-nowrap block"
+        >
           Fiesta de la Luna ～魔法少女達の百年祭
         </p>
-        <p
-          id="singerName"
-          class="text-sm text-[#373737] truncate font-japan-bit"
-        >
+        <p class="singerName text-sm text-[#373737] truncate font-japan-bit">
           ジャージと愉快な仲間たち
         </p>
       </div>
@@ -182,15 +181,13 @@
         class="flex-1 min-w-0 flex flex-col justify-center gap-2 text-white/80 text-sm md:text-base text-center px-4"
       >
         <p
-          id="mini-lyric"
-          class="lyric-text line-clamp-2 text-center w-full block"
+          class="mini-lyric lyric-text line-clamp-2 text-center w-full block cursor-pointer"
         >
           纯音乐，请欣赏
         </p>
         <!-- 翻译：固定显示在原文下方，没有翻译时隐藏 -->
         <p
-          id="mini-lyric-trans"
-          class="hidden truncate text-center w-full text-[16px] leading-tight text-white/60"
+          class="mini-lyric-trans hidden truncate text-center w-full text-[16px] leading-tight text-white/60"
         ></p>
       </div>
       <!-- 播放按钮组件 -->
@@ -225,15 +222,13 @@
           alt="上一首"
         />
         <img
-          id="play_song"
           src="icon/play.png"
-          class="w-10 h-10 object-contain cursor-pointer hover:scale-110 transition"
+          class="play_song w-10 h-10 object-contain cursor-pointer hover:scale-110 transition"
           alt="播放"
         />
         <img
-          id="pause_song"
           src="icon/pause.png"
-          class="w-10 h-10 object-contain cursor-pointer hover:scale-110 transition hidden"
+          class="pause_song w-10 h-10 object-contain cursor-pointer hover:scale-110 transition hidden"
           alt="暂停"
         />
         <img
@@ -243,6 +238,97 @@
         />
       </div>
     </div>
+    <!-- ====================点击专辑或者歌手名和信息弹出大歌曲详情======================================= -->
+    <div
+      id="detail-page"
+      class="hidden fixed inset-0 z-100 flex-col overflow-hidden"
+    >
+      <!-- =============================背景图是专辑图============================ -->
+      <div
+        id="detail-bg"
+        class="absolute inset-0 -z-20 bg-cover bg-center transition-all duration-700 bg-[#0f1a24]"
+      ></div>
+      <!-- 中层 -->
+      <div
+        class="absolute inset-0 -z-10 bg-[#0f1a24]/50 backdrop-blur-2xl"
+      ></div>
+      <!-- 顶部关闭按钮 -->
+      <div class="flex items-center p-4 shrink-0">
+        <button id="detail-close" type="button" class="text-white text-2xl">
+          <img
+            src="icon/删除-无边框.png"
+            alt="关闭"
+            class="w-12 h-12 transition-transform duration-500 hover:rotate-180 hover:scale-110"
+          />
+        </button>
+      </div>
+      <!-- -------------------主体区----------------------------- -->
+      <div
+        class="flex flex-1 flex-row items-center justify-center gap-12 px-8 pb-10 overflow-hidden"
+      >
+        <!-- -------------------详情页专辑图----------------------------- -->
+        <div class="shrink-0 flex flex-col items-center">
+          <img
+            src="Album_Cover/63／64 Completion.jpg"
+            class="Album_Cover w-64 h-64 md:w-80 md:h-80 rounded-full shadow-2xl animate-[spin_8s_linear_infinite] [animation-play-state:paused] object-cover"
+            alt="专辑图片"
+          />
+          <div
+            class="w-full max-w-[280px] md:max-w-sm flex flex-col items-center justify-center text-center text-white mt-8 mb-4 px-4"
+          >
+            <div class="w-full overflow-hidden mb-2">
+              <p
+                class="songName text-2xl md:text-3xl font-bold font-japan-cute whitespace-nowrap block w-full truncate"
+              >
+                Fiesta de la Luna ～魔法少女達の百年祭
+              </p>
+            </div>
+            <p
+              class="singerName text-base md:text-lg text-white/60 truncate font-japan-bit w-full"
+            >
+              ジャージと愉快な仲間たち
+            </p>
+          </div>
+          <div class="flex justify-center items-center">
+            <img
+              src="icon/caret-left-filled.png"
+              class="w-16 h-16 object-contain cursor-pointer hover:scale-110 transition"
+              alt="上一首"
+            />
+            <img
+              src="icon/play.png"
+              class="play_song w-24 h-24 object-contain cursor-pointer hover:scale-110 transition"
+              alt="播放"
+            />
+            <img
+              src="icon/pause.png"
+              class="pause_song w-24 h-24 object-contain cursor-pointer hover:scale-110 transition hidden"
+              alt="暂停"
+            />
+            <img
+              src="icon/caret-right-filled.png"
+              class="w-16 h-16 object-contain cursor-pointer hover:scale-110 transition"
+              alt="下一首"
+            />
+          </div>
+        </div>
+        <!-- -------------------歌词----------------------------- -->
+        <div
+          class="flex flex-col w-full md:w-1/2 h-full overflow-y-auto space-y-6 text-white/80 scrollbar-none pb-20 justify-center items-center"
+        >
+          <p
+            class="mini-lyric lyric-text line-clamp-2 text-center w-full block cursor-pointer text-[32px] font-japan-cute"
+          >
+            纯音乐，请欣赏
+          </p>
+          <!-- 翻译 -->
+          <p
+            class="mini-lyric-trans hidden text-center w-full text-[28px] leading-tight text-white/80 font-japan-cute"
+          ></p>
+        </div>
+      </div>
+    </div>
+
     <!-- 隐藏的音频播放器，放在 <body> 结束标签前 -->
     <audio
       id="my-audio"

@@ -2,11 +2,42 @@
 $(function () {
   // 获取音频和按钮
   const $audio = $("#my-audio");
-  const $playBtn = $("#play_song");
-  const $pauseBtn = $("#pause_song");
-  const $Album_cover = $("#Album_Cover");
-  const $miniLyric = $("#mini-lyric"); //歌词原文
-  const $miniLyricTrans = $("#mini-lyric-trans"); //歌词翻译
+  const $playBtn = $(".play_song");
+  const $pauseBtn = $(".pause_song");
+  const $Album_cover = $(".Album_Cover");
+  const $miniLyric = $(".mini-lyric"); //歌词原文
+  const $miniLyricTrans = $(".mini-lyric-trans"); //歌词翻译
+  // ============用户名逻辑==================
+  let savedName = localStorage.getItem("username");
+
+  if (!savedName) {
+    let inputName = prompt("请输入您的用户名:");
+
+    if (inputName && inputName.trim() !== "") {
+      savedName = inputName.trim();
+      localStorage.setItem("username", savedName); //传入本地浏览器缓存
+    } else {
+      savedName = "默认用户";
+    }
+  }
+
+  $(".username").text(savedName); //替换名字
+  //=============文字滚动函数================
+  function updateSongNameScroll() {
+    // 获取播放栏和详情页所有的歌名元素
+    const elements = document.querySelectorAll(".songName");
+
+    elements.forEach((el) => {
+      el.classList.remove("animate-marquee", "w-max", "min-w-full");
+      el.classList.add("w-full", "truncate");
+      //判断文字长度是否超过当前容器的宽度
+      if (el.scrollWidth > el.clientWidth) {
+        // 超长则移除截断，加上滚动
+        el.classList.remove("truncate", "w-full");
+        el.classList.add("w-max", "min-w-full", "animate-marquee");
+      }
+    });
+  }
 
   //=======================================================================
   //=========迷你歌词播放逻辑=========
@@ -229,7 +260,7 @@ $(function () {
              data-src="${song.audio}"
              data-lrc="${song.lrcUrl || ""}">
             <img src="${song.cover}" class="w-full aspect-square object-cover rounded-md shadow-md" alt="专辑图片">
-            <div class=" h-full bg-gradient-to-t from-white/30 to-transparent rounded-md">
+            <div class=" h-full bg-liner-to-t from-white/30 to-transparent rounded-md">
                 <p class="singer font-japan-bit text-[10px] w-full truncate mt-2 group-hover:text-blue-500">${song.singer}</p>
                 <p class="name font-japan-bit text-[15px] w-full  line-clamp-2 text-[#373838] group-hover:text-blue-400">${song.name}</p>
             </div>
@@ -271,23 +302,14 @@ $(function () {
     $audio.attr("src", audioSrc)[0].play();
 
     // 2. 把播放栏下方的文字和图片也同步换掉
-    $("#songName").text(songName);
-    $("#singerName").text(singerName);
+    $(".songName").text(songName);
+    updateSongNameScroll();
+    $(".singerName").text(singerName);
     $Album_cover.attr("src", coverSrc); // 换图
+    $("#detail-bg").css("background-image", `url(${coverSrc})`); //详情页换图
   });
   //=======================================================================
-  // ===== 点击播放栏的图片或文字，播放/暂停 =====
-  $("#Album_Cover, #songName, #singerName")
-    .css("cursor", "pointer")
-    .on("click", function () {
-      // 如果暂停了，就播放；否则就暂停
-      if ($audio[0].paused) {
-        $audio[0].play();
-      } else {
-        $audio[0].pause();
-      }
-    });
-  // ===== 音量控制逻辑 =====
+  // // ===== 音量控制逻辑 =====
   // 1. 点击图标，切换面板显示/隐藏
   $("#volume-btn").on("click", function () {
     $("#volume-panel").toggle();
@@ -297,4 +319,26 @@ $(function () {
   $("#volume-slider").on("input", function () {
     $audio[0].volume = $(this).val();
   });
+  // ==========================================================================
+  //大详情页
+  // ================= 大详情页逻辑 =================
+  // 1. 定义打开函数（只负责显示）
+  function openDetail() {
+    // 如果没切歌，默认用当前旋转图片的 src 作为背景
+    const currentCover = $(".Album_Cover").first().attr("src");
+    $("#detail-bg").css("background-image", `url('${currentCover}')`);
+
+    $("#detail-page").removeClass("hidden").addClass("flex flex-col");
+    updateSongNameScroll();
+  }
+
+  // 2. 在函数外部绑定打开事件/点击歌名和歌词调用openDetail函数功能
+  $("#song-info, .mini-lyric").on("click", openDetail);
+
+  // 3. 绑定关闭事件
+  $("#detail-close").on("click", function () {
+    $("#detail-page").addClass("hidden").removeClass("flex flex-col");
+  });
+  // 默认歌曲滚动动画监听
+  updateSongNameScroll();
 });

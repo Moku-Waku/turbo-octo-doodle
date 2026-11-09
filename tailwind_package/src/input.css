@@ -20,7 +20,18 @@
   --font-japan-bit: "japan-bit", sans-serif;
   --font-japan-cute: "japan-cute", sans-serif;
 }
-
+/* 滚动文字 */
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+.animate-marquee {
+  animation: marquee 12s linear infinite;
+}
 /* 迷你歌词：小字号要清晰，用系统字体，加一点阴影提升对比度 */
 .lyric-text {
   font-family:
