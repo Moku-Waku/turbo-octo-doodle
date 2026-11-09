@@ -5,20 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>音乐播放页</title>
     <!-- 标签栏图标 -->
-    <link rel="icon" href="./icon/reisa.ico" type="image/png" />
+    <link rel="icon" href="./icon/reisa.ico" type="image/x-icon" />
     <link href="./tailwind_package/src/output.css" rel="stylesheet" />
   </head>
+
   <body>
-    <!-- 背景图 -->
+    <!-- ==================== 背景图 ==================== -->
     <div
       class="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat blur-[2px]"
       style="background-image: url(&quot;img/Touhou-.webp&quot;)"
     ></div>
 
-    <!-- 导航栏 -->
+    <!-- ==================== 导航栏 ==================== -->
     <div
       class="w-full max-w-full h-16 rounded-b-lg bg-[#dbe8f644] font-japan-cute flex items-center relative"
     >
+      <!-- 侧边栏开关 -->
       <button
         id="sidebar-btn"
         type="button"
@@ -36,6 +38,8 @@
           class="absolute inset-0 w-8 h-8 object-contain opacity-0 transition-opacity duration-200 group-hover:opacity-100"
         />
       </button>
+
+      <!-- 主导航 -->
       <ul class="flex w-full gap-6 list-none justify-center text-3xl">
         <li>
           <a
@@ -60,6 +64,7 @@
           >
         </li>
       </ul>
+
       <!-- 导航栏右侧用户信息 -->
       <div
         class="absolute right-4 top-1/2 -translate-y-1/2 hidden md:flex items-center gap-3"
@@ -74,13 +79,14 @@
       </div>
     </div>
 
-    <!-- ================= 左右分栏大容器 ================= -->
+    <!-- ==================== 主体：侧边栏 + 内容区 ==================== -->
     <div class="flex h-full w-full">
       <!-- 左侧侧边栏（默认隐藏，点按钮从左边滑出） -->
       <aside
         id="sidebar"
         class="fixed top-0 left-0 h-full w-64 overflow-hidden bg-[#dbe8f644] flex flex-col backdrop-blur-md border-r border-white/20 z-40 -translate-x-full transition-transform duration-300"
       >
+        <!-- 侧边栏头部：头像 + 用户名 + 关闭 -->
         <div
           class="h-16 flex items-center justify-center text-white text-2xl font-japan-cute border-b border-white/20 relative"
         >
@@ -104,7 +110,7 @@
           </button>
         </div>
 
-        <!-- 垂直菜单 (flex-col) -->
+        <!-- 垂直菜单 -->
         <nav class="flex-1 flex flex-col gap-2 p-4 text-white">
           <a
             href="index.html"
@@ -124,17 +130,18 @@
           >
         </nav>
       </aside>
+
       <!-- 遮罩：点一下关闭侧边栏 -->
       <div
         id="sidebar-mask"
         class="fixed inset-0 bg-black/40 z-30 hidden"
       ></div>
-      <!-- 主体部分（滚动的容器） -->
+
+      <!-- 主体内容（可滚动） -->
       <div
         class="bg-[#dbe8f644] w-[90vw] h-[calc(100vh-11rem)] mx-auto mt-4 rounded-md overflow-y-auto p-4 scrollbar-none"
       >
-        <!--  网格布局，自适应一行放几个  -->
-        <!-- 手机2列，平板3列，中等屏幕4列，大屏幕5列，gap-4控制卡片间距 -->
+        <!-- 栏目标题 -->
         <div class="flex items-end">
           <p class="text-2xl text-white font-japan-cute">推荐歌曲</p>
           <p class="text-sm text-white/50 font-japan-cute">今日好歌</p>
@@ -142,19 +149,22 @@
         <hr
           class="h-px border-0 bg-linear-to-r from-transparent via-white/50 to-transparent my-2"
         />
+
+        <!-- 歌曲卡片网格：手机2列 / 平板3列 / 中等屏4列 / 大屏5列 -->
         <div
           id="card-container"
           class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 justify-items-center"
         >
-          <!-- 里面的卡片用 jQuery 动态塞进来 -->
+          <!-- 卡片由 js/index.js 动态渲染 -->
         </div>
       </div>
     </div>
-    <!-- 播放栏 -->
+
+    <!-- ==================== 底部播放栏 ==================== -->
     <div
       class="bg-[#c4dae661] w-[90%] h-20 fixed bottom-0 inset-x-0 flex rounded-t-lg items-center backdrop-blur-md mx-auto"
     >
-      <!-- 播放栏左侧音乐文件详情 -->
+      <!-- 专辑封面 -->
       <div class="flex items-center h-full ml-4 shrink-0">
         <img
           src="Album_Cover/63／64 Completion.jpg"
@@ -162,7 +172,8 @@
           alt="专辑图片"
         />
       </div>
-      <!-- 歌曲信息 -->
+
+      <!-- 歌曲信息（点击打开大详情页） -->
       <div
         id="song-info"
         class="w-50 min-w-0 flex flex-col justify-center text-white ml-4 overflow-hidden relative cursor-pointer"
@@ -176,7 +187,8 @@
           ジャージと愉快な仲間たち
         </p>
       </div>
-      <!-- 小型歌词显示 -->
+
+      <!-- 迷你歌词（点击打开大详情页） -->
       <div
         class="flex-1 min-w-0 flex flex-col justify-center gap-2 text-white/80 text-sm md:text-base text-center px-4"
       >
@@ -190,9 +202,10 @@
           class="mini-lyric-trans hidden truncate text-center w-full text-[16px] leading-tight text-white/60"
         ></p>
       </div>
-      <!-- 播放按钮组件 -->
+
+      <!-- 播放控制 -->
       <div class="flex items-center gap-4 ml-auto shrink-0 mr-2">
-        <!-- 音量控制组件 -->
+        <!-- 音量 -->
         <div class="relative flex items-center">
           <img
             id="volume-btn"
@@ -200,7 +213,6 @@
             class="w-6 h-6 object-contain cursor-pointer hover:scale-110 transition"
             alt="音量"
           />
-          <!-- 弹出的滑动条，默认隐藏 -->
           <div
             id="volume-panel"
             class="hidden absolute bottom-10 left-1/2 -translate-x-1/2 bg-black/60 p-3 rounded-lg backdrop-blur-md z-50"
@@ -216,6 +228,7 @@
             />
           </div>
         </div>
+
         <img
           src="icon/caret-left-filled.png"
           class="w-7 h-7 object-contain cursor-pointer hover:scale-110 transition"
@@ -238,21 +251,22 @@
         />
       </div>
     </div>
-    <!-- ====================点击专辑或者歌手名和信息弹出大歌曲详情======================================= -->
+
+    <!-- ==================== 大详情页（点歌名/歌词弹出） ==================== -->
     <div
       id="detail-page"
       class="hidden fixed inset-0 z-100 flex-col overflow-hidden"
     >
-      <!-- =============================背景图是专辑图============================ -->
+      <!-- 背景：当前专辑封面，模糊铺满 -->
       <div
         id="detail-bg"
         class="absolute inset-0 -z-20 bg-cover bg-center transition-all duration-700 bg-[#0f1a24]"
       ></div>
-      <!-- 中层 -->
       <div
         class="absolute inset-0 -z-10 bg-[#0f1a24]/50 backdrop-blur-2xl"
       ></div>
-      <!-- 顶部关闭按钮 -->
+
+      <!-- 左上角关闭 -->
       <div class="absolute top-4 left-4 z-50">
         <button id="detail-close" type="button" class="text-white text-2xl">
           <img
@@ -262,17 +276,19 @@
           />
         </button>
       </div>
-      <!-- -------------------主体区----------------------------- -->
+
+      <!-- 详情页主体：左专辑 + 右歌词 -->
       <div
         class="flex flex-1 flex-col md:flex-row items-center md:justify-center gap-8 md:gap-12 px-4 md:px-20 py-20 md:py-0 overflow-y-auto w-full"
       >
-        <!-- -------------------详情页专辑图----------------------------- -->
+        <!-- 专辑图 + 歌曲信息 + 播放控制 -->
         <div class="shrink-0 flex flex-col items-center mt-8 md:mt-0">
           <img
             src="Album_Cover/63／64 Completion.jpg"
             class="Album_Cover w-48 h-48 md:w-80 md:h-80 rounded-full shadow-2xl animate-[spin_8s_linear_infinite] [animation-play-state:paused] object-cover"
             alt="专辑图片"
           />
+
           <div
             class="w-full max-w-70 md:max-w-sm flex flex-col items-center justify-center text-center text-white mt-8 mb-4 px-4"
           >
@@ -289,6 +305,7 @@
               ジャージと愉快な仲間たち
             </p>
           </div>
+
           <div class="flex justify-center items-center gap-4 md:gap-6">
             <img
               src="icon/caret-left-filled.png"
@@ -312,29 +329,42 @@
             />
           </div>
         </div>
-        <!-- -------------------歌词----------------------------- -->
+
+        <!-- 歌词 -->
         <div
-          class="w-full md:w-1/2 flex flex-col items-center justify-center space-y-4 md:space-y-6 text-white/80 px-4 py-4 md:py-20"
+          class="w-full md:w-1/2 flex flex-col items-center justify-center space-y-4 md:space-y-6 text-white px-4 py-4 md:py-20"
         >
           <p
             class="mini-lyric text-center w-full block cursor-pointer text-2xl md:text-[32px] font-japan-cute"
           >
             纯音乐，请欣赏
           </p>
-          <!-- 翻译 -->
           <p
-            class="mini-lyric-trans hidden text-center w-full text-xl md:text-[28px] leading-tight text-white/80 font-japan-cute"
+            class="mini-lyric-trans hidden text-center w-full text-xl md:text-[26px] leading-tight text-white/80 font-japan-cute"
           ></p>
         </div>
       </div>
+
+      <!-- 底部音频频谱：横跨整页，暂停时会平滑落下去 -->
+      <div
+        class="relative z-10 w-full shrink-0 px-6 md:px-16 pb-4 md:pb-6 pointer-events-none"
+      >
+        <canvas
+          id="visualizer"
+          width="1200"
+          height="96"
+          class="w-full h-14 md:h-20 opacity-80"
+        ></canvas>
+      </div>
     </div>
 
-    <!-- 隐藏的音频播放器，放在 <body> 结束标签前 -->
+    <!-- 隐藏的音频播放器 -->
     <audio
       id="my-audio"
       src="audio/ジャージと愉快な仲間たち - Fiesta de la Luna ～魔法少女達の百年祭.mp3"
     ></audio>
-    <!-- 引用文件 -->
+
+    <!-- ==================== 脚本 ==================== -->
     <script src="./js/jquery-4.0.0.min.js"></script>
     <script src="./js/layout.js"></script>
     <script src="./js/index.js"></script>
