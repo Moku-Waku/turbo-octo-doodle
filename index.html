@@ -264,17 +264,17 @@
       </div>
       <!-- -------------------主体区----------------------------- -->
       <div
-        class="flex flex-1 flex-row items-center justify-center gap-12 px-8 pb-10 overflow-hidden"
+        class="flex flex-1 flex-col md:flex-row items-center justify-center gap-8 md:gap-12 px-4 md:px-8 pb-10 overflow-y-auto w-full"
       >
         <!-- -------------------详情页专辑图----------------------------- -->
-        <div class="shrink-0 flex flex-col items-center">
+        <div class="shrink-0 flex flex-col items-center mt-8 md:mt-0">
           <img
             src="Album_Cover/63／64 Completion.jpg"
-            class="Album_Cover w-64 h-64 md:w-80 md:h-80 rounded-full shadow-2xl animate-[spin_8s_linear_infinite] [animation-play-state:paused] object-cover"
+            class="Album_Cover w-48 h-48 md:w-80 md:h-80 rounded-full shadow-2xl animate-[spin_8s_linear_infinite] [animation-play-state:paused] object-cover"
             alt="专辑图片"
           />
           <div
-            class="w-full max-w-[280px] md:max-w-sm flex flex-col items-center justify-center text-center text-white mt-8 mb-4 px-4"
+            class="w-full max-w-70 md:max-w-sm flex flex-col items-center justify-center text-center text-white mt-8 mb-4 px-4"
           >
             <div class="w-full overflow-hidden mb-2">
               <p
@@ -289,41 +289,41 @@
               ジャージと愉快な仲間たち
             </p>
           </div>
-          <div class="flex justify-center items-center">
+          <div class="flex justify-center items-center gap-4 md:gap-6">
             <img
               src="icon/caret-left-filled.png"
-              class="w-16 h-16 object-contain cursor-pointer hover:scale-110 transition"
+              class="w-8 h-8 md:w-16 md:h-16 object-contain cursor-pointer hover:scale-110 transition"
               alt="上一首"
             />
             <img
               src="icon/play.png"
-              class="play_song w-24 h-24 object-contain cursor-pointer hover:scale-110 transition"
+              class="play_song w-8 h-8 md:w-16 md:h-16 object-contain cursor-pointer hover:scale-110 transition"
               alt="播放"
             />
             <img
               src="icon/pause.png"
-              class="pause_song w-24 h-24 object-contain cursor-pointer hover:scale-110 transition hidden"
+              class="pause_song w-8 h-8 md:w-16 md:h-16 object-contain cursor-pointer hover:scale-110 transition hidden"
               alt="暂停"
             />
             <img
               src="icon/caret-right-filled.png"
-              class="w-16 h-16 object-contain cursor-pointer hover:scale-110 transition"
+              class="w-8 h-8 md:w-16 md:h-16 object-contain cursor-pointer hover:scale-110 transition"
               alt="下一首"
             />
           </div>
         </div>
         <!-- -------------------歌词----------------------------- -->
         <div
-          class="flex flex-col w-full md:w-1/2 h-full overflow-y-auto space-y-6 text-white/80 scrollbar-none pb-20 justify-center items-center"
+          class="flex-1 flex flex-col w-full min-h-0 overflow-y-auto space-y-4 md:space-y-6 text-white/80 scrollbar-none py-10 md:py-20 items-center"
         >
           <p
-            class="mini-lyric lyric-text line-clamp-2 text-center w-full block cursor-pointer text-[32px] font-japan-cute"
+            class="mini-lyric lyric-text text-center w-full block cursor-pointer text-2xl md:text-[32px] font-japan-cute"
           >
             纯音乐，请欣赏
           </p>
           <!-- 翻译 -->
           <p
-            class="mini-lyric-trans hidden text-center w-full text-[28px] leading-tight text-white/80 font-japan-cute"
+            class="mini-lyric-trans hidden text-center w-full text-xl md:text-[28px] leading-tight text-white/80 font-japan-cute"
           ></p>
         </div>
       </div>

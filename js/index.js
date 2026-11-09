@@ -324,6 +324,7 @@ $(function () {
   // ================= 大详情页逻辑 =================
   // 1. 定义打开函数（只负责显示）
   function openDetail() {
+    if (!$("#detail-page").hasClass("hidden")) return;
     // 如果没切歌，默认用当前旋转图片的 src 作为背景
     const currentCover = $(".Album_Cover").first().attr("src");
     $("#detail-bg").css("background-image", `url('${currentCover}')`);
