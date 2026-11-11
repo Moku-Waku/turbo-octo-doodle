@@ -1,56 +1,23 @@
-// ==================== 音乐播放器主逻辑 ====================
-$(function () {
-  // ==================================================
-  // 1. 常用元素
-  // ==================================================
+// ==================== 播放器 ====================
+// 音频播放 / 暂停、LRC 歌词解析与同步、频谱、音量。
+// 卡片不在这里处理：卡片只负责调用 AppPlayer.play(song)。
+(function ($) {
+  "use strict";
+
+  // 脚本在 body 末尾引入，此时这些元素已经存在
   const $audio = $("#my-audio");
   const $playBtn = $(".play_song");
   const $pauseBtn = $(".pause_song");
   const $albumCover = $(".Album_Cover");
   const $miniLyric = $(".mini-lyric");
   const $miniLyricTrans = $(".mini-lyric-trans");
-  const $container = $("#card-container");
 
   // 频谱画布（位于大详情页底部）
   const canvas = document.getElementById("visualizer");
   const ctx = canvas ? canvas.getContext("2d") : null;
 
   // ==================================================
-  // 2. 用户名：第一次进站时询问，存到 localStorage
-  // ==================================================
-  let savedName = localStorage.getItem("username");
-
-  if (!savedName) {
-    const inputName = prompt("请输入您的用户名:");
-
-    if (inputName && inputName.trim() !== "") {
-      savedName = inputName.trim();
-      localStorage.setItem("username", savedName);
-    } else {
-      savedName = "默认用户";
-    }
-  }
-
-  $(".username").text(savedName);
-
-  // ==================================================
-  // 3. 歌名滚动：超长时用 marquee 动画滚动
-  // ==================================================
-  function updateSongNameScroll() {
-    document.querySelectorAll(".songName").forEach((el) => {
-      el.classList.remove("animate-marquee", "w-max", "min-w-full");
-      el.classList.add("w-full", "truncate");
-
-      // 文字比容器宽，就换成滚动
-      if (el.scrollWidth > el.clientWidth) {
-        el.classList.remove("truncate", "w-full");
-        el.classList.add("w-max", "min-w-full", "animate-marquee");
-      }
-    });
-  }
-
-  // ==================================================
-  // 4. 歌词：LRC 解析 / 加载 / 按进度更新
+  // 1. 歌词：LRC 解析 / 加载 / 按进度更新
   // ==================================================
   let lyricLines = []; // [{ time: 秒, text: 原文, trans: 翻译 }]
   let currentOffset = 0; // 当前歌曲的歌词偏移（秒）
@@ -157,7 +124,7 @@ $(function () {
   $audio.on("timeupdate", updateMiniLyric);
 
   // ==================================================
-  // 5. 音频频谱：详情页底部的柱状条（纯随机律动）
+  // 2. 音频频谱：详情页底部的柱状条（纯随机律动）
   // ==================================================
   let visualizerStarted = false;
 
@@ -298,7 +265,9 @@ $(function () {
     if (barHeights.length !== count) {
       barHeights = new Array(count).fill(0);
       barPeaks = new Array(count).fill(0);
-      barTargets = new Array(count).fill(0).map(() => 0.2 + Math.random() * 0.6);
+      barTargets = new Array(count)
+        .fill(0)
+        .map(() => 0.2 + Math.random() * 0.6);
       barNextChange = new Array(count).fill(0);
       barSeeds = new Array(count).fill(0).map(() => 0.5 + Math.random() * 0.5);
     }
@@ -366,16 +335,12 @@ $(function () {
   }
 
   // ==================================================
-  // 6. 播放 / 暂停
+  // 3. 播放 / 暂停
   // ==================================================
   $audio.on("play", function () {
     $playBtn.addClass("hidden");
     $pauseBtn.removeClass("hidden");
     $albumCover.removeClass("[animation-play-state:paused]");
-
-    // 播放时显示卡片的「正在播放」小圆点
-    if (playingCard) playingCard.find(".playing-dot").removeClass("hidden");
-
     initVisualizer();
   });
 
@@ -383,192 +348,13 @@ $(function () {
     $playBtn.removeClass("hidden");
     $pauseBtn.addClass("hidden");
     $albumCover.addClass("[animation-play-state:paused]");
-
-    // 暂停时隐藏小圆点，但卡片的高亮边框保留
-    if (playingCard) playingCard.find(".playing-dot").addClass("hidden");
   });
 
   $playBtn.on("click", () => $audio[0].play());
   $pauseBtn.on("click", () => $audio[0].pause());
 
   // ==================================================
-  // 7. 歌曲数据
-  // ==================================================
-  const songs = [
-    {
-      id: 1,
-      name: "イタズラものたちの行進",
-      singer: "ジャージと愉快な仲間たち",
-      cover: "Album_Cover/Tierra- Piedra-Cielo-y-Hombre土と石と空と人.jpg",
-      audio: "audio/ジャージと愉快な仲間たち - イタズラものたちの行進.mp3",
-    },
-    {
-      id: 2,
-      name: "Crimewave",
-      singer: "Crystal Castles",
-      cover: "Album_Cover/Track-cover-album-artwork300x300.jpg",
-      audio: "audio/Crimewave.mp3",
-      lrcUrl: "LRC/Crimewave.lrc",
-    },
-    {
-      id: 3,
-      name: "INTERNET OVERDOSE",
-      singer: "KOTOKO/Aiobahn+81",
-      cover: "Album_Cover/INTERNET_OVERDOSE640x640.webp",
-      audio:
-        "audio/spotiget.com_NEEDY_GIRL_OVERDOSE_KOTOKO_Aiobahn_+81_INTERNET_OVERDOSE.mp3",
-      lrcUrl:
-        "LRC/INTERNET OVERDOSE - NEEDY GIRL OVERDOSE _ KOTOKO _ Aiobahn +81.lrc",
-    },
-    {
-      id: 4,
-      name: "Fiesta de la Luna ～魔法少女達の百年祭",
-      singer: "ジャージと愉快な仲間たち",
-      cover: "Album_Cover/63／64 Completion.jpg",
-      audio:
-        "audio/ジャージと愉快な仲間たち - Fiesta de la Luna ～魔法少女達の百年祭.mp3",
-    },
-    {
-      id: 5,
-      name: "妄想感傷代償連盟 -Hello ver.-",
-      singer: "DECO*27",
-      cover: "Album_Cover/妄想感傷代償連盟 -Hello ver.- - DECO_27.webp",
-      audio: "audio/妄想感傷代償連盟 -Hello ver.- - DECO_27.mp3",
-      lrcUrl: "LRC/妄想感傷代償連盟 -Hello ver.- - DECO_27.lrc",
-    },
-    {
-      id: 6,
-      name: "Коммерсанты",
-      singer: "Molchat Doma",
-      cover: "Album_Cover/Коммерсанты - Molchat Doma.webp",
-      audio: "audio/Коммерсанты - Molchat Doma.mp3",
-      lrcUrl: "LRC/Коммерсанты - Molchat Doma.lrc",
-    },
-    {
-      id: 7,
-      name: "На Дне",
-      singer: "Molchat Doma",
-      cover: "Album_Cover/Коммерсанты - Molchat Doma.webp",
-      audio: "audio/На Дне - Molchat Doma.mp3",
-      lrcUrl: "LRC/На Дне - Molchat Doma.lrc",
-    },
-    {
-      id: 8,
-      name: "タイムパラドックス",
-      singer: "あよ / 森羅万象",
-      cover: "Album_Cover/タイムパラドックス - あよ _ 森羅万象.jpg",
-      audio: "audio/spotiget.com_森羅万象_タイムパラドックス.mp3",
-      lrcUrl: "LRC/タイムパラドックス - あよ _ 森羅万象.lrc",
-    },
-    {
-      id: 9,
-      name: "东方之珠",
-      singer: "羅大佑",
-      cover: "Album_Cover/东方之珠 - 罗大佑.jpg",
-      audio: "audio/spotiget.com_羅大佑_東方之珠.mp3",
-      lrcUrl: "LRC/东方之珠 - 罗大佑.lrc",
-    },
-    {
-      id: 10,
-      name: "Судно (Борис Рыжий)",
-      singer: "Molchat Doma",
-      cover: "Album_Cover/Коммерсанты - Molchat Doma.webp",
-      audio: "audio/spotiget.com_Molchat_Doma_Судно_(Борис_Рыжий).mp3",
-      lrcUrl: "LRC/Судно (Борис Рыжий) - Molchat Doma.lrc",
-    },
-    {
-      id: 11,
-      name: "火车",
-      singer: "羅大佑",
-      cover: "Album_Cover/原乡.jpg",
-      audio: "audio/羅大佑 - 火車.mp3",
-      lrcUrl: "LRC/火车 - 罗大佑.lrc",
-    },
-  ];
-
-  // ==================================================
-  // 8. 渲染歌曲卡片
-  // ==================================================
-  const htmlString = songs
-    .map(
-      (song) => `
-        <div class="song-card relative text-center w-full h-full bg-white/30 rounded-lg p-2 flex flex-col cursor-pointer group transition"
-             data-id="${song.id}"
-             data-src="${song.audio}"
-             data-lrc="${song.lrcUrl || ""}">
-            <span class="playing-dot hidden absolute top-2 right-2 w-3 h-3 rounded-full bg-white ring-2 ring-black/30 shadow-md animate-pulse"></span>
-            <img src="${song.cover}" class="w-full aspect-square object-cover rounded-md shadow-md" alt="专辑图片">
-            <div class="h-full bg-linear-to-t from-white/30 to-transparent rounded-md">
-                <p class="singer font-japan-bit text-[10px] w-full truncate mt-2 group-hover:text-blue-500">${song.singer}</p>
-                <p class="name font-japan-bit text-[15px] w-full line-clamp-2 text-[#373838] group-hover:text-blue-400">${song.name}</p>
-            </div>
-        </div>
-    `,
-    )
-    .join("");
-
-  $container.html(htmlString);
-
-  // ==================================================
-  // 9. 点击卡片切歌
-  // ==================================================
-  // 高亮当前正在播放的卡片
-  let playingCard = null;
-
-  function highlightPlayingCard($card) {
-    $(".song-card")
-      .removeClass("ring-2 ring-white/80 bg-white/40")
-      .find(".playing-dot")
-      .addClass("hidden");
-
-    playingCard = $card && $card.length ? $card : null;
-    if (!playingCard) return;
-
-    playingCard.addClass("ring-2 ring-white/80 bg-white/40");
-    if (!$audio[0].paused) {
-      playingCard.find(".playing-dot").removeClass("hidden");
-    }
-  }
-
-  $container.on("click", ".song-card", function () {
-    const audioSrc = $(this).data("src");
-    const songName = $(this).find(".name").text();
-    const singerName = $(this).find(".singer").text();
-    const coverSrc = $(this).find("img").attr("src");
-
-    if (!audioSrc) {
-      alert("这首歌还没上传音频哦！");
-      return;
-    }
-
-    loadLyric($(this).data("lrc"));
-
-    // 让封面旋转动画从头开始：先移除、强制重排、再加回暂停状态
-    $albumCover.removeClass("animate-[spin_8s_linear_infinite]");
-    void $albumCover[0].offsetWidth;
-    $albumCover.addClass(
-      "animate-[spin_8s_linear_infinite] [animation-play-state:paused]",
-    );
-
-    // 换源并播放（play 事件里会解除暂停状态）
-    $audio.attr("src", audioSrc)[0].play();
-
-    // 同步播放栏和详情页信息
-    $(".songName").text(songName);
-    updateSongNameScroll();
-    $(".singerName").text(singerName);
-    $albumCover.attr("src", coverSrc);
-    $("#detail-bg").css("background-image", `url(${coverSrc})`);
-
-    // 频谱柱子跟着新封面换色
-    updateVizColors(coverSrc);
-
-    // 高亮这张卡片
-    highlightPlayingCard($(this));
-  });
-
-  // ==================================================
-  // 10. 音量控制
+  // 4. 音量控制
   // ==================================================
   $("#volume-btn").on("click", function () {
     $("#volume-panel").toggle();
@@ -579,31 +365,50 @@ $(function () {
   });
 
   // ==================================================
-  // 11. 大详情页
+  // 5. 切歌：换源、更新播放栏信息、换频谱颜色
   // ==================================================
-  function openDetail() {
-    if (!$("#detail-page").hasClass("hidden")) return;
+  // song: { audio, lrcUrl, name, singer, cover }
+  function play(song) {
+    if (!song || !song.audio) return;
 
-    // 默认用当前专辑封面做背景
-    const currentCover = $(".Album_Cover").first().attr("src");
-    $("#detail-bg").css("background-image", `url('${currentCover}')`);
+    loadLyric(song.lrcUrl);
 
-    $("#detail-page").removeClass("hidden").addClass("flex flex-col");
-    updateSongNameScroll();
+    // 让封面旋转动画从头开始：先移除、强制重排、再加回暂停状态
+    $albumCover.removeClass("animate-[spin_8s_linear_infinite]");
+    void $albumCover[0].offsetWidth;
+    $albumCover.addClass(
+      "animate-[spin_8s_linear_infinite] [animation-play-state:paused]",
+    );
+
+    // 换源并播放（play 事件里会解除暂停状态）
+    $audio.attr("src", song.audio)[0].play();
+
+    // 同步播放栏和详情页信息
+    $(".songName").text(song.name);
+    $(".singerName").text(song.singer);
+    $albumCover.attr("src", song.cover);
+    $("#detail-bg").css("background-image", `url(${song.cover})`);
+
+    // 频谱柱子跟着新封面换色
+    updateVizColors(song.cover);
+
+    if (window.AppUI) window.AppUI.updateSongNameScroll();
   }
 
-  // 点播放栏的歌名或歌词打开详情页
-  $("#song-info, .mini-lyric").on("click", openDetail);
-
-  $("#detail-close").on("click", function () {
-    $("#detail-page").addClass("hidden").removeClass("flex flex-col");
+  // ==================================================
+  // 6. 初始化：首屏就用当前封面的主色给频谱上色
+  // ==================================================
+  $(function () {
+    updateVizColors($albumCover.first().attr("src"));
   });
 
-  // ==================================================
-  // 12. 初始化
-  // ==================================================
-  updateSongNameScroll();
-
-  // 首屏就用当前封面的主色给频谱上色
-  updateVizColors($(".Album_Cover").first().attr("src"));
-});
+  window.AppPlayer = {
+    play,
+    pause: () => $audio[0].pause(),
+    resume: () => $audio[0].play(),
+    setVolume: (value) => {
+      $audio[0].volume = value;
+    },
+    updateVizColors,
+  };
+})(jQuery);

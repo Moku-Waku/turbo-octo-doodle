@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth scrollbar-none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,156 +13,176 @@
     <!-- ==================== 背景图 ==================== -->
     <div
       class="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat blur-[2px]"
-      style="background-image: url(&quot;img/Touhou-.webp&quot;)"
+      style="background-image: url(img/Touhou-.webp)"
     ></div>
+    <!-- 深色遮罩：压暗背景，保证卡片和文字有对比度 -->
+    <div class="fixed inset-0 -z-10 bg-[#0f1a24]/45"></div>
 
-    <!-- ==================== 导航栏 ==================== -->
-    <div
-      class="w-full max-w-full h-16 rounded-b-lg bg-[#dbe8f644] font-japan-cute flex items-center relative"
+    <!-- ==================== 常驻侧边栏 ==================== -->
+    <aside
+      id="sidebar"
+      class="hidden md:flex fixed top-0 left-0 h-screen w-52 flex-col bg-[#0f1a24]/35 backdrop-blur-xl border-r border-white/10 z-40"
     >
-      <!-- 侧边栏开关 -->
-      <button
-        id="sidebar-btn"
-        type="button"
-        aria-label="打开侧边栏"
-        class="group absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8"
+      <!-- 品牌 -->
+      <div
+        class="h-16 flex items-center gap-2 px-4 border-b border-white/10 shrink-0"
       >
         <img
-          src="icon/可拖拽.png"
-          alt="侧边栏"
-          class="absolute inset-0 w-8 h-8 object-contain transition-opacity duration-200 group-hover:opacity-0"
-        />
-        <img
-          src="icon/可拖拽_选中.png"
+          src="icon/play.png"
           alt=""
-          class="absolute inset-0 w-8 h-8 object-contain opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+          class="w-6 h-6 object-contain opacity-90"
         />
-      </button>
+        <span class="text-white font-japan-cute text-lg">音乐播放器</span>
+      </div>
 
-      <!-- 主导航 -->
-      <ul class="flex w-full gap-6 list-none justify-center text-3xl">
-        <li>
-          <a
-            href="index.html"
-            class="text-white hover:text-blue-300 transition"
-            rel="noopener"
-            >开始</a
-          >
-        </li>
-        <li>
-          <a
-            href="other_pages/songlist.html"
-            class="text-white hover:text-blue-300 transition"
-            target="_blank"
-            rel="noopener"
-            >发现</a
-          >
-        </li>
-        <li>
-          <a href="#" class="text-white hover:text-blue-300 transition"
-            >我的喜欢</a
-          >
-        </li>
-      </ul>
+      <!-- 菜单 -->
+      <nav class="flex-1 flex flex-col gap-1 p-3 text-white/70">
+        <a
+          href="index.html"
+          class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-white/10 text-white font-bold transition"
+          rel="noopener"
+          >开始</a
+        >
+        <a
+          href="#playlists"
+          class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/10 hover:text-white transition"
+          >发现</a
+        >
+        <a
+          href="#"
+          class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/10 hover:text-white transition"
+          >我的喜欢</a
+        >
+      </nav>
 
-      <!-- 导航栏右侧用户信息 -->
+      <!-- 底部用户 -->
       <div
-        class="absolute right-4 top-1/2 -translate-y-1/2 hidden md:flex items-center gap-3"
+        class="shrink-0 p-4 border-t border-white/10 flex items-center gap-3"
       >
         <img
           src="img/head.jpg"
-          class="rounded-full w-12 h-12 object-cover shrink-0"
-          style="width: 48px; height: 48px"
           alt="用户头像"
+          class="w-10 h-10 rounded-full object-cover shrink-0"
         />
-        <p class="text-white username">冴月麟</p>
+        <p class="username text-white text-sm truncate">冴月麟</p>
       </div>
-    </div>
+    </aside>
 
-    <!-- ==================== 主体：侧边栏 + 内容区 ==================== -->
-    <div class="flex h-full w-full">
-      <!-- 左侧侧边栏（默认隐藏，点按钮从左边滑出） -->
-      <aside
-        id="sidebar"
-        class="fixed top-0 left-0 h-full w-64 overflow-hidden bg-[#dbe8f644] flex flex-col backdrop-blur-md border-r border-white/20 z-40 -translate-x-full transition-transform duration-300"
-      >
-        <!-- 侧边栏头部：头像 + 用户名 + 关闭 -->
-        <div
-          class="h-16 flex items-center justify-center text-white text-2xl font-japan-cute border-b border-white/20 relative"
-        >
-          <div class="flex items-center justify-between gap-3">
-            <img
-              src="img/head.jpg"
-              class="rounded-full w-12 h-12 object-cover shrink-0"
-              style="width: 48px; height: 48px"
-              alt="用户头像"
-            />
-            <p class="username">冴月麟</p>
-          </div>
-
-          <button
-            id="sidebar-close"
-            type="button"
-            aria-label="关闭侧边栏"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-white text-xl leading-none hover:text-blue-300 transition"
-          >
-            ✕
-          </button>
-        </div>
-
-        <!-- 垂直菜单 -->
-        <nav class="flex-1 flex flex-col gap-2 p-4 text-white">
-          <a
-            href="index.html"
-            class="px-4 py-3 rounded-lg bg-white/20 font-bold hover:bg-white/30 transition"
-            rel="noopener"
-            >开始</a
-          >
-          <a
-            href="other_pages/songlist.html"
-            class="px-4 py-3 rounded-lg hover:bg-white/20 transition"
-            target="_blank"
-            rel="noopener"
-            >发现</a
-          >
-          <a href="#" class="px-4 py-3 rounded-lg hover:bg-white/20 transition"
-            >我的喜欢</a
-          >
-        </nav>
-      </aside>
-
-      <!-- 遮罩：点一下关闭侧边栏 -->
-      <div
-        id="sidebar-mask"
-        class="fixed inset-0 bg-black/40 z-30 hidden"
-      ></div>
-
-      <!-- 主体内容（可滚动） -->
-      <div
-        class="bg-[#dbe8f644] w-[90vw] h-[calc(100vh-11rem)] mx-auto mt-4 rounded-md overflow-y-auto p-4 scrollbar-none"
-      >
-        <!-- 栏目标题 -->
-        <div class="flex items-end">
-          <p class="text-2xl text-white font-japan-cute">推荐歌曲</p>
-          <p class="text-sm text-white/50 font-japan-cute">今日好歌</p>
-        </div>
-        <hr
-          class="h-px border-0 bg-linear-to-r from-transparent via-white/50 to-transparent my-2"
+    <!-- ==================== 主内容区 ==================== -->
+    <main class="md:ml-56 px-4 md:px-8 pt-6 pb-40 space-y-10">
+      <!-- 搜索框 -->
+      <div class="w-full mb-3 flex justify-center items-center">
+        <input
+          type="search"
+          class="appearance-none px-4 py-2 w-full max-w-lg bg-white/10 rounded-2xl border-2 border-white/20 caret-indigo-500 outline-none focus:border-white-500 hover:bg-white/50 focus:bg-white/50"
         />
+      </div>
+      <!-- ============ 第一行：轮播图（待补充） ============ -->
+      <section
+        id="carousel"
+        class="relative w-full h-44 md:h-56 rounded-2xl overflow-hidden bg-white/10 border border-white/10"
+      >
+        <!-- 轮播图内容待补充 -->
+      </section>
 
-        <!-- 歌曲卡片网格：手机2列 / 平板3列 / 中等屏4列 / 大屏5列 -->
+      <!-- ============ 第二行：推荐歌曲（横向滑动） ============ -->
+      <section>
+        <div class="flex items-end justify-between mb-4">
+          <div class="flex items-end gap-3">
+            <h2 class="text-2xl text-white font-japan-cute">推荐歌曲</h2>
+            <p class="text-sm text-white/50 font-japan-cute mb-1">今日好歌</p>
+          </div>
+          <!-- 左右切换按钮 -->
+          <div class="flex items-center gap-2">
+            <button
+              id="songs-prev"
+              type="button"
+              aria-label="往前翻"
+              class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition"
+            >
+              <img
+                src="icon/caret-left-filled.png"
+                alt=""
+                class="w-4 h-4 object-contain"
+              />
+            </button>
+            <button
+              id="songs-next"
+              type="button"
+              aria-label="往后翻"
+              class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition"
+            >
+              <img
+                src="icon/caret-right-filled.png"
+                alt=""
+                class="w-4 h-4 object-contain"
+              />
+            </button>
+          </div>
+        </div>
+
         <div
           id="card-container"
-          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 justify-items-center"
+          class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-none pb-2"
         >
-          <!-- 卡片由 js/index.js 动态渲染 -->
+          <!-- 歌曲卡片由 js/index.js 动态渲染 -->
         </div>
-      </div>
-    </div>
+      </section>
+
+      <hr
+        class="h-px border-0 bg-linear-to-r from-transparent via-white/30 to-transparent"
+      />
+
+      <!-- ============ 第三行：推荐歌单 ============ -->
+      <section id="playlists" class="scroll-mt-24">
+        <div class="flex items-end justify-between mb-4">
+          <div class="flex items-end gap-3">
+            <h2 class="text-2xl text-white font-japan-cute">推荐歌单</h2>
+            <p class="text-sm text-white/50 font-japan-cute mb-1">
+              根据你的喜好
+            </p>
+          </div>
+          <!-- 左右切换按钮 -->
+          <div class="flex items-center gap-2">
+            <button
+              id="playlists-prev"
+              type="button"
+              aria-label="往前翻"
+              class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition"
+            >
+              <img
+                src="icon/caret-left-filled.png"
+                alt=""
+                class="w-4 h-4 object-contain"
+              />
+            </button>
+            <button
+              id="playlists-next"
+              type="button"
+              aria-label="往后翻"
+              class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition"
+            >
+              <img
+                src="icon/caret-right-filled.png"
+                alt=""
+                class="w-4 h-4 object-contain"
+              />
+            </button>
+          </div>
+        </div>
+
+        <div
+          id="card-container-song"
+          class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-none pb-2"
+        >
+          <!-- 歌单卡片由 js/index.js 动态渲染 -->
+        </div>
+      </section>
+    </main>
 
     <!-- ==================== 底部播放栏 ==================== -->
     <div
-      class="bg-[#c4dae661] w-[90%] h-20 fixed bottom-0 inset-x-0 flex rounded-t-lg items-center backdrop-blur-md mx-auto"
+      class="bg-[#c4dae661] fixed bottom-0 left-0 md:left-56 right-0 h-20 flex rounded-t-lg items-center backdrop-blur-md mx-2 md:mx-4"
     >
       <!-- 专辑封面 -->
       <div class="flex items-center h-full ml-4 shrink-0">
@@ -366,7 +386,13 @@
 
     <!-- ==================== 脚本 ==================== -->
     <script src="./js/jquery-4.0.0.min.js"></script>
-    <script src="./js/layout.js"></script>
-    <script src="./js/index.js"></script>
+    <!-- data.js：歌曲 / 歌单数据（加歌、改歌单只动这里） -->
+    <script src="./js/data.js"></script>
+    <!-- ui.js：用户名、歌名滚动、大详情页、横向翻页 -->
+    <script src="./js/ui.js"></script>
+    <!-- player.js：播放 / 暂停、歌词、频谱、音量 -->
+    <script src="./js/player.js"></script>
+    <!-- cards.js：推荐歌曲 / 推荐歌单卡片 -->
+    <script src="./js/cards.js"></script>
   </body>
 </html>

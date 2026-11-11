@@ -1,142 +1,134 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>列表页</title>
+    <title>歌单详情</title>
     <!-- 标签栏图标 -->
     <link rel="icon" href="../icon/reisa.ico" type="image/x-icon" />
     <link href="../tailwind_package/src/output.css" rel="stylesheet" />
   </head>
 
   <body>
-    <!-- ==================== 导航栏 ==================== -->
+    <!-- ==================== 背景图 ==================== -->
     <div
-      class="w-full max-w-full h-16 rounded-b-lg bg-[#dbe8f644] font-japan-cute flex items-center relative"
-    >
-      <!-- 侧边栏开关 -->
-      <button
-        id="sidebar-btn"
-        type="button"
-        aria-label="打开侧边栏"
-        class="group absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8"
-      >
-        <img
-          src="../icon/可拖拽.png"
-          alt="侧边栏"
-          class="absolute inset-0 w-8 h-8 object-contain transition-opacity duration-200 group-hover:opacity-0"
-        />
-        <img
-          src="../icon/可拖拽_选中.png"
-          alt=""
-          class="absolute inset-0 w-8 h-8 object-contain opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-        />
-      </button>
+      class="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat blur-[2px]"
+      style="background-image: url(../img/Touhou2.webp)"
+    ></div>
+    <!-- 深色遮罩：和首页一致，保证内容对比度 -->
+    <div class="fixed inset-0 -z-10 bg-[#0f1a24]/45"></div>
 
-      <!-- 主导航 -->
-      <ul class="flex w-full gap-6 list-none justify-center text-3xl">
-        <li>
-          <a
-            href="../index.html"
-            class="text-white hover:text-blue-300 transition"
-            rel="noopener"
-            >开始</a
-          >
-        </li>
-        <li>
-          <a
-            href="songlist.html"
-            class="text-white hover:text-blue-300 transition"
-            rel="noopener"
-            >发现</a
-          >
-        </li>
-        <li>
-          <a href="#" class="text-white hover:text-blue-300 transition"
-            >我的喜欢</a
-          >
-        </li>
-      </ul>
-
-      <!-- 导航栏右侧用户信息 -->
-      <div
-        class="absolute right-4 top-1/2 -translate-y-1/2 hidden md:flex items-center gap-3"
-      >
-        <img
-          src="../img/head.jpg"
-          class="rounded-full w-12 h-12 object-cover shrink-0"
-          style="width: 48px; height: 48px"
-          alt="用户头像"
-        />
-        <p id="username" class="text-white">冴月麟</p>
-      </div>
-    </div>
-
-    <!-- ==================== 侧边栏 ==================== -->
+    <!-- ==================== 常驻侧边栏 ==================== -->
     <aside
       id="sidebar"
-      class="fixed top-0 left-0 h-full w-64 overflow-hidden bg-[#dbe8f644] flex flex-col backdrop-blur-md border-r border-white/20 z-40 -translate-x-full transition-transform duration-300"
+      class="hidden md:flex fixed top-0 left-0 h-screen w-56 flex-col bg-[#0f1a24]/85 backdrop-blur-xl border-r border-white/10 z-40"
     >
-      <!-- 侧边栏头部：头像 + 用户名 + 关闭 -->
+      <!-- 品牌 -->
       <div
-        class="h-16 flex items-center justify-center text-white text-2xl font-japan-cute border-b border-white/20 relative"
+        class="h-16 flex items-center gap-2 px-4 border-b border-white/10 shrink-0"
       >
-        <div class="flex items-center justify-between gap-1">
-          <img
-            src="../img/head.jpg"
-            class="rounded-full w-12 h-12 object-cover shrink-0"
-            style="width: 48px; height: 48px"
-            alt="用户头像"
-          />
-          <p id="username">冴月麟</p>
-        </div>
-
-        <button
-          id="sidebar-close"
-          type="button"
-          aria-label="关闭侧边栏"
-          class="absolute right-3 top-1/2 -translate-y-1/2 text-white text-xl leading-none hover:text-blue-300 transition"
-        >
-          ✕
-        </button>
+        <img
+          src="../icon/play.png"
+          alt=""
+          class="w-6 h-6 object-contain opacity-90"
+        />
+        <span class="text-white font-japan-cute text-lg">音乐播放器</span>
       </div>
 
-      <!-- 垂直菜单 -->
-      <nav class="flex-1 flex flex-col gap-2 p-4 text-white">
+      <!-- 菜单 -->
+      <nav class="flex-1 flex flex-col gap-1 p-3 text-white/70">
         <a
           href="../index.html"
-          class="px-4 py-3 rounded-lg bg-white/20 font-bold hover:bg-white/30 transition"
+          class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/10 hover:text-white transition"
           rel="noopener"
           >开始</a
         >
         <a
-          href="songlist.html"
-          class="px-4 py-3 rounded-lg hover:bg-white/20 transition"
+          href="../index.html#playlists"
+          class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-white/10 text-white font-bold transition"
           rel="noopener"
           >发现</a
         >
-        <a href="#" class="px-4 py-3 rounded-lg hover:bg-white/20 transition"
+        <a
+          href="#"
+          class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/10 hover:text-white transition"
           >我的喜欢</a
         >
       </nav>
+
+      <!-- 底部用户 -->
+      <div
+        class="shrink-0 p-4 border-t border-white/10 flex items-center gap-3"
+      >
+        <img
+          src="../img/head.jpg"
+          alt="用户头像"
+          class="w-10 h-10 rounded-full object-cover shrink-0"
+        />
+        <p class="username text-white text-sm truncate">冴月麟</p>
+      </div>
     </aside>
 
-    <!-- 遮罩：点一下关闭侧边栏 -->
-    <div id="sidebar-mask" class="fixed inset-0 bg-black/40 z-30 hidden"></div>
+    <!-- ==================== 主内容区 ==================== -->
+    <main class="md:ml-56 px-4 md:px-8 pt-6 pb-10">
+      <!-- 移动端没有常驻侧边栏，给一个返回入口 -->
+      <a
+        href="../index.html"
+        class="md:hidden inline-flex items-center gap-1 mb-3 text-sm text-white/70 hover:text-white transition"
+        >← 返回首页</a
+      >
 
-    <!-- ==================== 主体（内容待补充） ==================== -->
-    <div class="w-full flex">
-      <div></div>
-      <hr
-        class="h-px border-0 bg-linear-to-r from-transparent via-white/50 to-transparent my-2"
-      />
-      <ul class="">
-        <li></li>
-      </ul>
-    </div>
+      <section class="bg-white/10 border border-white/10 rounded-2xl p-4 md:p-6">
+        <div class="flex flex-col md:flex-row items-start gap-6 md:gap-8">
+          <!-- 封面 + 印在封面上的歌单大字 -->
+          <div
+            class="relative w-full max-w-64 aspect-square md:w-64 md:h-64 md:max-w-none shrink-0 rounded-xl overflow-hidden"
+          >
+            <img
+              id="detail-cover"
+              src="../Album_Cover/63／64 Completion.jpg"
+              alt="歌单封面"
+              class="w-full h-full object-cover"
+            />
+            <div
+              class="absolute inset-x-0 bottom-0 p-3 flex flex-col items-start gap-1 bg-linear-to-t from-black/80 to-transparent"
+            >
+              <p
+                class="detail-title font-japan-cute text-[20px] font-bold text-black bg-[#b3e7f0] px-2 py-0.5 rounded inline-block truncate max-w-full"
+              ></p>
+            </div>
+          </div>
+
+          <!-- 标题 + 简介 -->
+          <div class="flex-1 min-w-0 flex flex-col items-start">
+            <h1
+              class="detail-title text-2xl md:text-4xl text-white font-japan-cute w-full break-words"
+            ></h1>
+            <hr
+              class="w-full h-px border-0 bg-linear-to-r from-transparent via-white/50 to-transparent my-3"
+            />
+            <p
+              class="song_desc text-sm md:text-base text-white/80 line-clamp-2 cursor-pointer hover:text-white transition-colors duration-200 w-full"
+            >
+              这里是一段很长很长的歌曲详情介绍（测试文本）。它一开始只能显示两行，超过的部分会自动变成省略号。当你用鼠标点击这段文字时，它会像手风琴一样展开，显示出完整的全部内容。如果你再次点击它，它又会收回去，只显示两行。这个交互在很多音乐软件的歌单介绍里非常常见。
+            </p>
+          </div>
+        </div>
+
+        <hr
+          class="h-px border-0 bg-linear-to-r from-transparent via-white/50 to-transparent my-4"
+        />
+
+        <!-- 曲目列表（待补充） -->
+        <ul class="space-y-2">
+          <li></li>
+        </ul>
+      </section>
+    </main>
 
     <!-- ==================== 脚本 ==================== -->
     <script src="../js/jquery-4.0.0.min.js"></script>
-    <script src="../js/layout.js"></script>
+    <!-- list.js：读取歌单封面 / 标题 + 简介展开 -->
+    <script src="../js/list.js"></script>
   </body>
 </html>
